@@ -10,37 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "full_libft.h"
 #include "data_func.h"
 #include <stdlib.h>
-// use count_words ? or modify split to make an int *
+#include <stdio.h>
+
+
 int	circ_push(t_circ_buff *c, int data)
 {
-	int	next;
-
-	next = c->head + 1;
-	if (next >= c->size)
-		next = 0;
-	if (next == c->tail)
-		return (-1);
+	if (circ_full(c))
+		return(-1);
 	c->buff[c->head] = data;
-	c->head = next;
+	c->head = (c->head + 1) % c->size;
 	return (0);
 }
 
-int	circ_buf_pop(t_circ_buff *c, int *data)
+
+int	circ_pop(t_circ_buff *c, int *data)
 {
-	int	next;
-
-	if (c->head == c->tail)
+	if (circ_empty(c))
 		return (-1);
-	next = c->tail + 1;
-	if (next >= c->size)
-		next = 0;
-
-	*data = c->buff[c->tail];  // Read data and then move
-    c->tail = next;              // tail to next offset.
-    return (0);  // return success to indicate successful push.
+	*data = c->buff[c->tail];
+    c->tail = (c->tail + 1) % c->size;
+    return (0);
 }
 
 //int	circ_full()
@@ -55,16 +46,18 @@ t_circ_buff	*circ_init(int size)
 		return (NULL);
 	buff = (int *)malloc(sizeof(int) * size);
 		if (!buff)
-		{
-			free(c);
-			return (NULL);
-		}
+	{
+		free(c);
+		return (NULL);
+	}
 	c->buff = buff;
 	c->head = 0;
 	c->tail = 0;
 	c->size = size;
 	return (c);
 }
+
+
 
 t_circ_buff	*get_stack(char *nbr)
 {
@@ -73,13 +66,30 @@ t_circ_buff	*get_stack(char *nbr)
 	int		i;
 	t_circ_buff *c;
 
-	nb = ft_split(nbr);
+	i = 0;
+	nb = ft_split(nbr, ' ');
 	size = count_words(nbr, ' ');
-	c = circ_init(size);
-	while (nb[i])
+	c = circ_init(size + 1);
+	while (!circ_full(c))
 	{
 		circ_push(c, ft_atoi(nb[i]));
 		i++;
 	}
+	free(nb);
 	return (c);
 }
+/*
+int	main(int ac, char **av)
+{
+	t_circ_buff	*c;
+	int	i;
+
+	i = 0;
+	c = get_stack(av[1]);
+	while (i < c->size - 1)
+	{
+		printf("%d\n", c->buff[i]);
+		i++;
+	}
+	return (0);
+}*/

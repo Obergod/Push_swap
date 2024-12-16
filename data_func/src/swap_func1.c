@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_func.h                                        :+:      :+:    :+:   */
+/*   swap_func1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mafioron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:37:24 by mafioron          #+#    #+#             */
-/*   Updated: 2024/12/14 17:37:25 by mafioron         ###   ########.fr       */
+/*   Created: 2024/12/16 20:10:43 by mafioron          #+#    #+#             */
+/*   Updated: 2024/12/16 20:10:47 by mafioron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_FUNC_H
-# define DATA_FUNC_H
+#include "data_func.h"
 
-#include <stdint.h>
-
-typedef struct s_circ_buff
+void	sa(t_circ_buff *a)
 {
-	int		*buff;
-	int		head;
-	int		tail;
-	int		size;
-}t_circ_buff;
+	int	next;
 
+	if (!a || circ_empty(a))
+		return ;
+	next = (a->tail + 1) % a->size;
+	ft_swap(&a->buff[a->tail], &a->buff[next]);
+}
 
-t_circ_buff	*get_stack(char *nbr);
-t_circ_buff	*circ_init(int size);
-int	circ_pop(t_circ_buff *c, int *data);
-int	circ_push(t_circ_buff *c, int data);
-int	circ_full(t_circ_buff *c);
-int	circ_empty(t_circ_buff *c);
-void	ft_swap(int	*a, int *b);
+void	pa(t_circ_buff *a, t_circ_buff *b)
+{
+	int	value;
 
-#endif
+	if (!a || !b || )
+		return ;
+	value = b->buff[b->tail];
+	b->tail = (b->tail + 1) % a->size;
+	a->tail = prev_pos(a->tail, a->size);
+	a->buff[a->tail] = value;
+}

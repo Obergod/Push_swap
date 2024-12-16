@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_func.h                                        :+:      :+:    :+:   */
+/*   swap_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mafioron <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 17:37:24 by mafioron          #+#    #+#             */
-/*   Updated: 2024/12/14 17:37:25 by mafioron         ###   ########.fr       */
+/*   Created: 2024/12/16 19:31:03 by mafioron          #+#    #+#             */
+/*   Updated: 2024/12/16 19:31:06 by mafioron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_FUNC_H
-# define DATA_FUNC_H
+#include "data_func.h"
 
-#include <stdint.h>
-
-typedef struct s_circ_buff
+int	circ_full(t_circ_buff *c)
 {
-	int		*buff;
-	int		head;
-	int		tail;
-	int		size;
-}t_circ_buff;
+	return ((c->head + 1) % c->size == c->tail);
+}
 
+int	circ_empty(t_circ_buff *c)
+{
+	return (c->head == c->tail);
+}
 
-t_circ_buff	*get_stack(char *nbr);
-t_circ_buff	*circ_init(int size);
-int	circ_pop(t_circ_buff *c, int *data);
-int	circ_push(t_circ_buff *c, int data);
-int	circ_full(t_circ_buff *c);
-int	circ_empty(t_circ_buff *c);
-void	ft_swap(int	*a, int *b);
+void	ft_swap(int	*a, int *b)
+{
+	int	temp;
 
-#endif
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+int	prev_pos(int pos, int size)
+{
+	if (pos == 0)
+		return (size - 1);
+	return (pos - 1);
+}
+// faire next_pos
