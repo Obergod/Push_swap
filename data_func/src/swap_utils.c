@@ -37,4 +37,9 @@ int	prev_pos(int pos, int size)
 		return (size - 1);
 	return (pos - 1);
 }
+
+int	next_pos(int pos, int size)
+{
+	return ((pos + 1) % size);
+}
 // faire next_pos

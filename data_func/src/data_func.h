@@ -14,6 +14,7 @@
 # define DATA_FUNC_H
 
 #include <stdint.h>
+#include <stdio.h>
 
 typedef struct s_circ_buff
 {
@@ -31,5 +32,7 @@ int	circ_push(t_circ_buff *c, int data);
 int	circ_full(t_circ_buff *c);
 int	circ_empty(t_circ_buff *c);
 void	ft_swap(int	*a, int *b);
+int	next_pos(int pos, int size);
+int	prev_pos(int pos, int size);
 
 #endif
