@@ -78,18 +78,56 @@ t_circ_buff	*get_stack(char *nbr)
 	free(nb);
 	return (c);
 }
-/*
-int	main(int ac, char **av)
-{
-	t_circ_buff	*c;
-	int	i;
 
-	i = 0;
-	c = get_stack(av[1]);
-	while (i < c->size - 1)
-	{
-		printf("%d\n", c->buff[i]);
-		i++;
-	}
-	return (0);
-}*/
+int main(int ac, char **av)
+{
+    t_circ_buff *a;
+    t_circ_buff *b;
+    int i;
+
+    if (ac != 2)
+        return (1);
+
+    // Initialize stacks
+    a = get_stack(av[1]);
+    b = circ_init(count_words(av[1], ' '));
+
+    // Print initial state
+    printf("Initial stack A:\n");
+    i = 0;
+    while (i < a->size)
+    {
+        printf("%d ", a->buff[i]);
+        i++;
+    }
+    printf("\n");
+
+    // Test operations
+    s_ab(a, 'a');     // sa
+    printf("After sa\n");
+    // Print stack
+
+    pb(b, a);         // pb
+    printf("After pb\n");
+    // Print both stacks
+
+    r_ab(a, 'a');     // ra
+    printf("After ra\n");
+    // Print stack
+
+    rr_ab(a, 'a');    // rra
+    printf("After rra\n");
+    // Print stack
+
+    pa(a, b);         // pa
+    printf("After pa\n");
+    // Print both stacks
+
+    // Clean up
+    free(a->buff);
+    free(a);
+    free(b->buff);
+    free(b);
+
+    return (0);
+}

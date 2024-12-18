@@ -12,75 +12,77 @@
 
 #include "data_func.h"
 
-void	s(t_circ_buff *c, char n)
+void	s_ab(t_circ_buff *c, char stack)
 {
 	int	next;
 
-	if (!c || circ_empty(c))
+	if (circ_empty(c))
 		return ;
 	next = (c->tail + 1) % c->size;
 	ft_swap(&c->buff[c->tail], &c->buff[next]);
-	if (c == 'a')
-		printf("sa\n");
-	else if (c == 'b')
-		printf("sb\n");
+	if (stack == 'a')
+		ft_printf("sa\n");
+	else if (stack == 'b')
+		ft_printf("sb\n");
 }
 
-void	ss(t_circ_buff *a, t_circ_buff *b)
-{
-
-}
 
 void	pa(t_circ_buff *a, t_circ_buff *b)
 {
 	int	value;
 
-	if (!b)
+	if (circ_empty(b))
 		return ;
-	value = b->buff[b->tail];
-	b->tail = (b->tail + 1) % a->size;
-	a->tail = prev_pos(a->tail, a->size);
-	a->buff[a->tail] = value;
+	circ_pop(b, &value);
+	circ_push(a, value);
+	ft_printf("pa\n");
 }
 
 void	pb(t_circ_buff *b, t_circ_buff *a)
 {
 	int	value;
 
-	if (!a)
+	if (circ_empty(a))
 		return ;
-	value = a->buff[a->tail];
-	a->tail = (a->tail + 1) % b->size;
-	b->tail = prev_pos(b->tail, b->size);
-	b->buff[b->tail] = value;
+	circ_pop(a, &value);
+	circ_push(b, value);
+	ft_printf("pb\n");
 }
 
-void	ra(t_circ_buff *a)
+void	r_ab(t_circ_buff *c, char stack)
 {
 	int	i;
 	int	next;
 
 	i = -1;
-	a->head = a->tail;
-	while (++i < a->size - 1)
+	c->head = c->tail;
+	while (++i < c->size - 1)
 	{
-		next = next_pos(a->head, a->size); 
-		ft_swap(&a->buff[a->head], &a->buff[next]);
-		a->head = next_pos(a->head, a->size);
+		next = (c->tail + 1) % c->size; 
+		ft_swap(&c->buff[c->head], &c->buff[next]);
+		c->head = next_pos(c->head, c->size);
 	}
+	if (stack == 'a')
+		ft_printf("ra\n");
+	else if (stack == 'b')
+		ft_printf("rb\n");
 }
 
-void	rra(t_circ_buff *a)
+void	rr_ab(t_circ_buff *c, char stack)
 {
 	int	i;
 	int	prev;
 
 	i = -1;
-	a->head = prev_pos(a->size - 1, a->size);
-	while (++i < a->size)
+	c->head = prev_pos(c->size - 1, c->size);
+	while (++i < c->size)
 	{
-		prev = prev_pos(a->head, a->size);
-		ft_swap(&a->buff[a->head], &a->buff[prev]);
-		a->head = next_pos(a->head, a->size);
+		prev = prev_pos(c->head, c->size);
+		ft_swap(&c->buff[c->head], &c->buff[prev]);
+		c->head = next_pos(c->head, c->size);
 	}
+	if (stack == 'a')
+		ft_printf("rra\n");
+	else if (stack == 'b')
+		ft_printf("rrb\n");
 }

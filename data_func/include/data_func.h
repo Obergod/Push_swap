@@ -14,7 +14,8 @@
 # define DATA_FUNC_H
 
 #include <stdint.h>
-#include <stdio.h>
+#include "libft.h"
+# include "ft_printf.h"
 
 typedef struct s_circ_buff
 {
@@ -24,15 +25,28 @@ typedef struct s_circ_buff
 	int		size;
 }t_circ_buff;
 
-
+/******      get stack    *************/
 t_circ_buff	*get_stack(char *nbr);
 t_circ_buff	*circ_init(int size);
 int	circ_pop(t_circ_buff *c, int *data);
 int	circ_push(t_circ_buff *c, int data);
+
+/******		swap_utils		**********/
 int	circ_full(t_circ_buff *c);
 int	circ_empty(t_circ_buff *c);
 void	ft_swap(int	*a, int *b);
 int	next_pos(int pos, int size);
 int	prev_pos(int pos, int size);
+
+/******		swap_func	**************/
+void	s_ab(t_circ_buff *c, char stack);
+void	pa(t_circ_buff *a, t_circ_buff *b);
+void	pb(t_circ_buff *b, t_circ_buff *a);
+void	r_ab(t_circ_buff *c, char stack);
+void	rr_ab(t_circ_buff *c, char stack);
+void	ss(t_circ_buff *a, t_circ_buff *b);
+void	rr(t_circ_buff *a, t_circ_buff *b);
+void	rrr(t_circ_buff *a, t_circ_buff *b);
+
 
 #endif

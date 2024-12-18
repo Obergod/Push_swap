@@ -17,28 +17,29 @@ all: $(NAME)
 
 $(NAME): libft printf gnl
 	cp libft/libft.a $(NAME)
-	ar rcs $(NAME) ft_printf/libftprintf.a gnl/libgnl.a
+	(cd ft_printf && ar x libftprintf.a && ar q ../$(NAME) *.o)
+	(cd gnl && ar x libgnl.a && ar q ../$(NAME) *.o)
 
 libft:
-	cd libft && make re
+	$(MAKE) -C libft re
 
 printf:
-	cd ft_printf && make re
+	$(MAKE) -C ft_printf re
 
 gnl:
-	cd gnl && make re
+	$(MAKE) -C gnl re
 
 clean:
-	cd libft && make clean
-	cd ft_printf && make clean
-	cd gnl && make clean
+	$(MAKE) -C libft clean
+	$(MAKE) -C ft_printf clean
+	$(MAKE) -C gnl clean
 
 fclean: clean
-	cd libft && make fclean
-	cd ft_printf && make fclean
-	cd gnl && make fclean
+	$(MAKE) -C libft fclean
+	$(MAKE) -C ft_printf fclean
+	$(MAKE) -C gnl fclean
 	rm -f $(NAME)
 
-re: fclean alr
+re: fclean all
 
 .PHONY: all clean fclean re libft printf gnl
