@@ -12,6 +12,8 @@
 
 #include "data_func.h"
 
+
+// Need recursivity and struct that has a and b stacks in it
 t_circ_buff	first_split(t_circ_buff *a, t_circ_buff *b)
 {
 	t_split_it	split;
@@ -46,9 +48,6 @@ t_circ_buff	first_split(t_circ_buff *a, t_circ_buff *b)
 
 int	*sort_100(t_circ_buff *c)
 {
-	int	range;
-
-	range = get_range(c);
 	while (!sorted(c->buff))
 	{
 
@@ -67,3 +66,20 @@ int	main (int ac, char **av)
 		res = sort_100(c);
 	}
 }
+/*****		RECURSIVE SORT EX		*****/
+/*
+		void recursive_chunk_sort(t_chunk *chunk_to_sort)
+		{
+			if (base_case == true)
+		  	{
+		    perform_very_simple_sort();
+		    return;
+	  		}
+	 
+		 	split_chunk(chunk_to_sort, &split_chunks);
+		 
+			 recursive_chunk_sort(&split_chunks.max);
+			 recursive_chunk_sort(&split_chunks.mid);
+		 	 recursive_chunk_sort(&split_chunks.min);
+		}
+*/
