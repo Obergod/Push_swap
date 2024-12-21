@@ -25,8 +25,15 @@ typedef struct s_circ_buff
 	int		size;
 }t_circ_buff;
 
+typedef struct s_stacks
+{
+	t_circ_buff	*a;
+	t_circ_buff	*b;
+}t_stacks;
+
+
 /******      get stack    *************/
-t_circ_buff	*get_stack(char *nbr);
+t_stacks	*get_stack(char *nbr);
 t_circ_buff	*circ_init(int size);
 int	circ_pop(t_circ_buff *c, int *data);
 int	circ_push(t_circ_buff *c, int data);

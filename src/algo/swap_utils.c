@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "data_func.h"
+#include "push_swap.h"
 
 
 void	get_min_max(int *data, int *min, int *max)
@@ -36,8 +37,8 @@ int	sorted(int *data)
 	int	stock;
 
 	i = 0;
-	if (size < 2)
-		return (1);
+//	if (size < 2)
+//		return (1);
 	while (data[i])
 	{
 		stock = data[i];
@@ -67,11 +68,11 @@ t_split_it	*split_it_init(t_split_it *s)
 {
 	if (!s)
 		return (NULL);
-	s->min.e_loc = BOTTOM_B;
+	s->min.loc = BOTTOM_B;
 	s->min.size = 0;
-	s->mid.e_loc = TOP_B;
+	s->mid.loc = TOP_B;
 	s->mid.size = 0;
-	s->max.e_loc = TOP_A;
+	s->max.loc = TOP_A;
 	s->max.size = 0;
 	return (s);
 }

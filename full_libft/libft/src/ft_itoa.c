@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
 static long	ft_abs(long n)
 {
@@ -70,9 +70,3 @@ char	*ft_itoa(int nb)
 	res = to_str(n, res, len, i);
 	return (res);
 }
-/*
-int	main(int ac, char **av)
-{
-	printf("this is itoa : %s\n", ft_itoa(atoi(av[1])));
-	return (0);
-}*/

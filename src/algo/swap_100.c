@@ -11,16 +11,20 @@
 /* ************************************************************************** */
 
 #include "data_func.h"
+#include "push_swap.h" 
 
 
-// Need recursivity and struct that has a and b stacks in it
-t_circ_buff	first_split(t_circ_buff *a, t_circ_buff *b)
+// Either other function or add if in function of whre you are to split 
+// example : first sort max = BOP_A  mid = TOP_B min = BOT_B
+// then sort again max until all split with recursion
+t_split_it	*first_split(t_circ_buff *a, t_circ_buff *b)
 {
-	t_split_it	split;
+	t_split_it	*split;
 	int	nb_read;
 	int	p1;
 	int	p2;
 
+	split = NULL;
 	split = split_it_init(split);
 	get_pivots(a, &p1, &p2);
 	while	(nb_read < a->size)
@@ -28,42 +32,43 @@ t_circ_buff	first_split(t_circ_buff *a, t_circ_buff *b)
 		if (a->buff[a->head] > p2)
 		{
 			r_ab(a, 'a');
-			split.min.size++;
+			split->min.size++;
 		}
 		else if (a->buff[a->head] > p1)
 		{
 			pb(a, b);
-			split.mid.size++;
+			split->mid.size++;
 		}
 		else
 		{
 			pb(a, b);
 			r_ab(b, 'b');
-			split.max.size++;
+			split->max.size++;
 		}
-		i++;
+		nb_read++;
 	}
 	return (split);
 }
-
-int	*sort_100(t_circ_buff *c)
+/*
+int	*sort_100(t_circ_buff *a, t_circ_buff *b)
 {
-	while (!sorted(c->buff))
-	{
-
-	}
 }
-
+*/
 
 int	main (int ac, char **av)
 {
-	t_circ_buff	*c;
-	int	*res;
-	
-	c = get_data(av[1]);
-	if (count_word(av[1]) >= 6)
+	t_stacks	*stacks;
+	//t_split_it	*split;
+	int	size;
+
+	size = count_words(av[1], ' ');
+	stacks = get_stack(av[1]);
+	if (ac > 1)
 	{
-		res = sort_100(c);
+		if (size >= 6)
+		{
+			first_split(stacks->a, stacks->b);
+		}
 	}
 }
 /*****		RECURSIVE SORT EX		*****/

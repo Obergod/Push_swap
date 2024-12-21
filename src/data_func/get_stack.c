@@ -55,22 +55,39 @@ t_circ_buff	*circ_init(int size)
 	return (c);
 }
 
-t_circ_buff	*get_stack(char *nbr)
+t_stacks	*stacks_init(int size)
+{
+	t_stacks	*stacks;
+
+	stacks = malloc(sizeof(t_stacks));
+	if (!stacks)
+		return (NULL);
+	stacks->a = circ_init(size);
+	stacks->b = circ_init(size);
+	if (!stacks->a || !stacks->b)
+	{
+		free(stacks);
+		return (NULL);
+	}
+	return (stacks);
+}
+
+t_stacks	*get_stack(char *nbr)
 {
 	char	**nb;
 	int		size;
 	int		i;
-	t_circ_buff *c;
+	t_stacks	*stacks;
 
 	i = 0;
 	nb = ft_split(nbr, ' ');
 	size = count_words(nbr, ' ');
-	c = circ_init(size + 1);
-	while (!circ_full(c))
+	stacks = stacks_init(size + 1);
+	while (!circ_full(stacks->a))
 	{
-		circ_push(c, ft_atoi(nb[i]));
+		circ_push(stacks->a, ft_atoi(nb[i]));
 		i++;
 	}
 	free(nb);
-	return (c);
+	return (stacks);
 }
