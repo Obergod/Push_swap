@@ -20,7 +20,7 @@ SRCS_DIR = src
 INCS_DIR = include/
 LIBFT_INC = full_libft/include/
 
-SRC = /algo/swap_100.c /algo/swap_utils.c /data_func/get_stack.c /data_func/swap_func1.c /data_func/swap_func2.c /data_func/swap_utils.c
+SRC = /algo/swap_100.c /algo/swap_utils.c /data_func/get_stack.c /data_func/swap_func1.c /data_func/swap_func2.c /data_func/stack_utils.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRC))
 OBJ = $(SRCS:.c=.o)

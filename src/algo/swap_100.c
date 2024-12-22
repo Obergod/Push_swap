@@ -24,24 +24,24 @@ t_split_it	*first_split(t_circ_buff *a, t_circ_buff *b)
 	int	p1;
 	int	p2;
 
-	split = NULL;
-	split = split_it_init(split);
+	nb_read = 0;
+	split = split_it_init();
 	get_pivots(a, &p1, &p2);
-	while	(nb_read < a->size)
+	while	(nb_read < a->size - 1)
 	{
-		if (a->buff[a->head] > p2)
+		if (a->buff[a->tail] > p2)
 		{
 			r_ab(a, 'a');
 			split->min.size++;
 		}
-		else if (a->buff[a->head] > p1)
+		else if (a->buff[a->tail] > p1)
 		{
-			pb(a, b);
+			pb(b, a);
 			split->mid.size++;
 		}
 		else
 		{
-			pb(a, b);
+			pb(b, a);
 			r_ab(b, 'b');
 			split->max.size++;
 		}

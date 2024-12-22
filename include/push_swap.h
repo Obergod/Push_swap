@@ -36,9 +36,9 @@ typedef struct	s_split_it
 
 
 /*********		swap_utils		**********/
-t_split_it	*split_it_init(t_split_it *s);
+t_split_it	*split_it_init();
 t_split_it	*first_split(t_circ_buff *a, t_circ_buff *b);
-void	get_min_max(int *data, int *min, int *max);
+void	get_min_max(t_circ_buff *a, int *min, int *max);
 int	sorted(int *data);
 void	get_pivots(t_circ_buff *c, int *p1, int *p2);
 
