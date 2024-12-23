@@ -14,46 +14,71 @@
 #include "push_swap.h" 
 
 
-// Either other function or add if in function of whre you are to split 
-// example : first sort max = BOP_A  mid = TOP_B min = BOT_B
+// Either other function or add "if" depending on whre you are to split 
+// example : first sort max = BOT_A  mid = TOP_B min = BOT_B
 // then sort again max until all split with recursion
-t_split_it	*first_split(t_circ_buff *a, t_circ_buff *b)
+
+void	first_sort(t_stacks *stacks)
+{
+	t_chunk *basic_chunk;
+
+	basic_chunk.size = stacks->a.size;
+	basic_chunk.loc = TOP_A;
+	rec_sort(stacks, basic_chunk);
+}
+
+int	rec_sort(t_stacks *stacks, t_chunk, chunk)
 {
 	t_split_it	*split;
+
+	//split = split_it init(a->size)
+	if (split->size <= 3)
+	{
+
+	}
+	sort_it(stacks, &sort_it);
+
+	rec_sort(stacks, &split.max);
+	rec_sort(stacks, &split.mid);
+	rec_sort(stacks, &split.min);
+}
+
+void	sort_it(t_stacks *stacks, t_split_it *split)
+{
 	int	nb_read;
 	int	p1;
 	int	p2;
 
 	nb_read = 0;
-	split = split_it_init();
 	get_pivots(a, &p1, &p2);
-	while	(nb_read < a->size - 1)
+	if (split->loc == TOP_A)
 	{
-		if (a->buff[a->tail] > p2)
+
+		while	(nb_read < a->size - 1)
 		{
-			r_ab(a, 'a');
-			split->min.size++;
+			if (a->buff[a->tail] > p2)
+			{
+				r_ab(a, 'a');
+				split->min.size++;
+			}
+			else if (a->buff[a->tail] > p1)
+			{	
+				pb(b, a);
+				split->mid.size++;
+			}
+			else
+			{
+				pb(b, a);
+					r_ab(b, 'b');
+				split->max.size++;
+			}
+			nb_read++;
 		}
-		else if (a->buff[a->tail] > p1)
-		{
-			pb(b, a);
-			split->mid.size++;
-		}
-		else
-		{
-			pb(b, a);
-			r_ab(b, 'b');
-			split->max.size++;
-		}
-		nb_read++;
 	}
 	return (split);
 }
-/*
-int	*sort_100(t_circ_buff *a, t_circ_buff *b)
-{
-}
-*/
+
+
 
 int	main (int ac, char **av)
 {
