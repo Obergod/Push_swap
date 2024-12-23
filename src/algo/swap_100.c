@@ -22,12 +22,12 @@ void	first_sort(t_stacks *stacks)
 {
 	t_chunk *basic_chunk;
 
-	basic_chunk.size = stacks->a.size;
+	basic_chunk.size = stacks.a.size;
 	basic_chunk.loc = TOP_A;
 	rec_sort(stacks, basic_chunk);
 }
 
-int	rec_sort(t_stacks *stacks, t_chunk, chunk)
+int	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
 	t_split_it	*split;
 
@@ -38,9 +38,9 @@ int	rec_sort(t_stacks *stacks, t_chunk, chunk)
 	}
 	sort_it(stacks, &sort_it);
 
-	rec_sort(stacks, &split.max);
-	rec_sort(stacks, &split.mid);
-	rec_sort(stacks, &split.min);
+	rec_sort(stacks, &sort_it.max);
+	rec_sort(stacks, &sort_it.mid);
+	rec_sort(stacks, &sort_it.min);
 }
 
 void	sort_it(t_stacks *stacks, t_split_it *split)
@@ -50,32 +50,11 @@ void	sort_it(t_stacks *stacks, t_split_it *split)
 	int	p2;
 
 	nb_read = 0;
-	get_pivots(a, &p1, &p2);
+	get_pivots(stacks.a, &p1, &p2);
 	if (split->loc == TOP_A)
-	{
-
-		while	(nb_read < a->size - 1)
-		{
-			if (a->buff[a->tail] > p2)
-			{
-				r_ab(a, 'a');
-				split->min.size++;
-			}
-			else if (a->buff[a->tail] > p1)
-			{	
-				pb(b, a);
-				split->mid.size++;
-			}
-			else
-			{
-				pb(b, a);
-					r_ab(b, 'b');
-				split->max.size++;
-			}
-			nb_read++;
-		}
-	}
-	return (split);
+		sort_top_a(stacks->a, stacks->b, &split);
+	else if (split->loc == TOP_B)
+		
 }
 
 

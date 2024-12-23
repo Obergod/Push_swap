@@ -27,8 +27,8 @@ typedef struct s_circ_buff
 
 typedef struct s_stacks
 {
-	t_circ_buff	*a;
-	t_circ_buff	*b;
+	t_circ_buff	a;
+	t_circ_buff	b;
 }t_stacks;
 
 

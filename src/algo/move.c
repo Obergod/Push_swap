@@ -28,13 +28,13 @@ void	move_from_to(t_stacks *stacks, enum e_loc from, enum e_loc to)
 void	move_from_top_a(t_stacks *stacks, enum e_loc to)
 {
 	if (to == TOP_B)
-		pb(stacks->b, stacks->a);
+		pb(stacks.b, stacks.a);
 	else if (to == BOT_A)
 		r_ab(stack->a, 'a');
 	else if (to == BOT_B)
 	{
-		pb(stacks->b, stacks->a);
-		r_ab(stacks->b, 'b');
+		pb(stacks.b, stacks.a);
+		r_ab(stacks.b, 'b');
 	}
 }
 
@@ -43,45 +43,45 @@ void	move_from_bot_a(t_stacks *stacks, enum e_loc to)
 {
 	if (to == TOP_B)
 	{
-		rr_ab(stacks->a, 'a');
-		pb(stacks->b, stacks->a);
+		rr_ab(stacks.a, 'a');
+		pb(stacks.b, stacks.a);
 	}
 	else if (to == BOT_B)
 	{
-		rr_ab(stacks->a, 'a');
-		pb(stacks->b, stacks->a);
-		r_ab(stacks->b, 'b');
+		rr_ab(stacks.a, 'a');
+		pb(stacks.b, stacks.a);
+		r_ab(stacks.b, 'b');
 	}
 	else if (to == TOP_A)
-		rr_ab(stacks->a, 'a');
+		rr_ab(stacks.a, 'a');
 }
 
 void	move_from_top_b(t_stacks *stacks, enum e_loc to)
 {
 	if (to == TOP_A)
-		pa(stacks->a, stacks->b)
+		pa(stacks.a, stacks.b)
 	else if (to == BOT_A)
 	{
-		pa(stacks->a, stacks->b)
-		r_ab(stacks->a, 'a');
+		pa(stacks.a, stacks.b)
+		r_ab(stacks.a, 'a');
 	}
 	else if (to == BOT_B)
-		r_ab(stacks->b, 'b');
+		r_ab(stacks.b, 'b');
 }
 
 void	move_from_bot_b(t_stacks *stacks, enum e_loc to)
 {
 	if (to == TOP_B)
-		rr_ab(stacks->b, 'b');
+		rr_ab(stacks.b, 'b');
 	else if (to == TOP_A)
 	{
-		rr_ab(stacks->b, 'b');
-		pa(stacks->a, stacks->b)
+		rr_ab(stacks.b, 'b');
+		pa(stacks.a, stacks.b)
 	}
 	else if (to == BOT_A)
 	{
-		rr_ab(stacks->b, 'b');
-		pa(stacks->a, stacks->b)
-		r_ab(stacks->a, 'a');
+		rr_ab(stacks.b, 'b');
+		pa(stacks.a, stacks.b)
+		r_ab(stacks.a, 'a');
 	}
 }
