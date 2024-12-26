@@ -50,7 +50,7 @@ void	sort_it(t_stacks *stacks, t_split_it *split)
 	int	p2;
 
 	nb_read = 0;
-	get_pivots(stacks.a, &p1, &p2);
+	get_pivots(stacks, &p1, &p2);
 	if (split->loc == TOP_A)
 		sort_top_a(stacks->a, stacks->b, &split);
 	else if (split->loc == TOP_B)

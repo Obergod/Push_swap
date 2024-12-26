@@ -14,20 +14,20 @@
 #include "push_swap.h"
 
 
-void	get_min_max(t_circ_buff *a, int *min, int *max)
+void	get_min_max(t_circ_buff *c, int *min, int *max)
 {
 	int	i;
 
 	i = -1;
-	*min = a->buff[a->tail];
-	*max = a->buff[a->tail];
-	while (++i < a->size)
+	*min = c->buff[c->tail];
+	*max = c->buff[c->tail];
+	while (++i < c->size)
 	{
-		if (a->buff[a->head] < *min)
-			*min = a->buff[a->head];
-		if (a->buff[a->head] > *max)
-			*max = a->buff[a->head];
-		a->head = (a->head + 1) % a->size;
+		if (c->buff[c->head] < *min)
+			*min = c->buff[c->head];
+		if (c->buff[c->head] > *max)
+			*max = c->buff[c->head];
+		c->head = (c->head + 1) % c->size;
 	}
 }
 
@@ -51,13 +51,16 @@ int	sorted(int *data)
 	return (1);
 }
 
-void	get_pivots(t_circ_buff *a, int *p1, int *p2)
+void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
 {
 	int	min;
 	int	max;
 	int	range;
 
-	get_min_max(a, &min, &max);
+	if (loc == TOP_A || loc == BOT_A)
+		get_min_max(stack->a, &min, &max);
+	else
+		get_min_max(stack->b, &min, &max);
 	range = max - min;
 
 	*p1 = min + (range / 3);
