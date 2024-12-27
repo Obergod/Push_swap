@@ -27,14 +27,50 @@ void	first_sort(t_stacks *stacks)
 	rec_sort(stacks, basic_chunk);
 }
 
+void	split_loc (enum e_loc loc, t_chunk *min, t_chunk *mid, t_chunk *max)
+{
+	if (loc == TOP_A)
+	{
+		min->loc = BOT_B;
+		mid->loc = TOP_B;
+		max->loc = BOT_A;
+	}
+	if (loc == BOT_A)
+	{
+		min->loc = BOT_B;
+		mid->loc = TOP_B;
+		max->loc = TOP_A;
+	}
+	if (loc == TOP_B)
+	{
+		min->loc = BOT_B;
+		mid->loc = BOT_A;
+		max->loc = TOP_A;
+	}
+	if (loc == BOT_B)
+	{
+		min->loc = TOP_B;
+		mid->loc = BOT_A;
+		max->loc = TOP_A;
+	}
+}
+
+void	size_init(t_chunk *min, t_chunk *mid, t_chunk *max)
+{
+	min->size = 0;
+	mid->size = 0;
+	max->size = 0;
+}
+
 int	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
 	t_split_it	*split;
 
-	//split = split_it init(a->size)
+	size_init(&split->min, &split->mid, &split->max)
+	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
 	if (split->size <= 3)
 	{
-
+		// thre_digit_sort()
 	}
 	sort_it(stacks, &sort_it);
 
@@ -53,8 +89,6 @@ void	sort_it(t_stacks *stacks, t_split_it *split)
 	get_pivots(stacks, &p1, &p2);
 	if (split->loc == TOP_A)
 		sort_top_a(stacks->a, stacks->b, &split);
-	else if (split->loc == TOP_B)
-		
 }
 
 

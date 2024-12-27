@@ -13,7 +13,7 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-void	sort_top_a(t_stacks *s, t_split_it *split)
+void	sort_all(t_stacks *s, t_split_it *split)
 {
 	int	nb_read;
 
