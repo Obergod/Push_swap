@@ -58,15 +58,15 @@ void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
 	int	range;
 
 	if (loc == TOP_A || loc == BOT_A)
-		get_min_max(stack->a, &min, &max);
-	else
-		get_min_max(stack->b, &min, &max);
+		get_min_max(&stack->a, &min, &max);
+	else if (loc == TOP_B || loc == BOT_B)
+		get_min_max(&stack->b, &min, &max);
 	range = max - min;
 
 	*p1 = min + (range / 3);
 	*p2 = min + ((range * 2) / 3);
 }
-
+/*
 t_split_it	*split_it_init()
 {
 	t_split_it	*s;
@@ -81,4 +81,4 @@ t_split_it	*split_it_init()
 	s->max.loc = TOP_A;
 	s->max.size = 0;
 	return (s);
-}
+}*/

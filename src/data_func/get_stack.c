@@ -34,10 +34,9 @@ int	circ_pop(t_circ_buff *c, int *data)
     return (0);
 }
 
-t_circ_buff	*circ_init(int size)
+t_circ_buff *circ_init(int size, t_circ_buff *c)
 {
 	int			*buff;
-	t_circ_buff	*c;
 	
 	c = (t_circ_buff *)malloc(sizeof(t_circ_buff));
 	if (!c)
@@ -62,9 +61,9 @@ t_stacks	*stacks_init(int size)
 	stacks = malloc(sizeof(t_stacks));
 	if (!stacks)
 		return (NULL);
-	stacks->a = circ_init(size);
-	stacks->b = circ_init(size);
-	if (!stacks->a || !stacks->b)
+	circ_init(size, &stacks->a);
+	circ_init(size, &stacks->b);
+	if (!&stacks->a || !&stacks->b)
 	{
 		free(stacks);
 		return (NULL);
@@ -83,9 +82,9 @@ t_stacks	*get_stack(char *nbr)
 	nb = ft_split(nbr, ' ');
 	size = count_words(nbr, ' ');
 	stacks = stacks_init(size + 1);
-	while (!circ_full(stacks->a))
+	while (!circ_full(&stacks->a))
 	{
-		circ_push(stacks->a, ft_atoi(nb[i]));
+		circ_push(&stacks->a, ft_atoi(nb[i]));
 		i++;
 	}
 	free(nb);

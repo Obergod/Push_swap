@@ -42,4 +42,3 @@ int	next_pos(int pos, int size)
 {
 	return ((pos + 1) % size);
 }
-// faire next_pos

@@ -13,41 +13,73 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-void	sort_all(t_stacks *s, t_split_it *split)
+t_circ_buff *wich_stack(t_stacks *stack, enum e_loc loc)
 {
-	int	nb_read;
-
-	nb_read = 0;
-		while	(nb_read < s.a->size - 1)
-		{
-			if (s.a->buff[s.a->tail] > p2)
-			{
-				r_ab(a, 'a');
-				split->min.size++;
-			}
-			else if (s.a->buff[s.a->tail] > p1)
-			{	
-				pb(b, a);
-				split->mid.size++;
-			}
-			else
-			{
-				pb(b, a);
-				r_ab(b, 'b');
-				split->max.size++;
-			}
-			nb_read++;
-		}
+	if (loc == TOP_A || loc == BOT_A)
+		return (&stack->a);
+	else
+		return (&stack->b);
 }
 
-void	sort_bot_a(t_stacks *s, t_split_it *split)
+int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 {
-	int	nb_read;
+	int	value;
+	t_circ_buff *s;
 
-	nb_read = 0;
-	while	(nb_read < split->mi - 1)
+	s = wich_stack(stack, chunk->loc);
+	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
 	{
-		nb_read++;
+		value = s->tail;
+		while (--i > 0)
+			next_pos(s->size, value);
 	}
+	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+	{
+		value = s->head;
+		while (--i > 0)
+			prev_pos(s->size, value);
+	}
+	return (s->buff[value]);
+}
 
+void	three_digit_sort(t_stacks *stack, t_chunk *chunk)
+{
+	int	n1;
+	int	n2;
+	int	n3;
+
+	n1 = get_nb(stack, chunk, 1);
+	n2 = get_nb(stack, chunk, 2);
+	n3 = get_nb(stack, chunk, 3);
+	if (n3 > n2 && n2 > n1 && n3 > n1)
+		return ;
+	else if (n3 > n2 && n3 > n1 && n1 > n2)
+		s_ab(&stack->a, 'a');
+	else if (n3 > n2 && n1 > n3 && n1 > n2)
+		r_ab(&stack->a, 'a');
+	else if (n3 < n1 && n1 > n2 && n2 > n3)
+	{
+		s_ab(&stack->a, 'a');
+		rr_ab(&stack->a, 'a');	
+	}
+	else if (n1 < n2 && n2 > n3 && n3 > n1)
+	{
+		s_ab(&stack->a, 'a');
+		r_ab(&stack->a, 'a');	
+	}
+	else if (n3 < n1 && n1 < n2 && n2 > n3)
+		rr_ab(&stack->a, 'a');
+}
+
+void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
+{
+	int	n1;
+	int	n2;
+
+	n1 = get_nb(stack, chunk, 1);
+	n2 = get_nb(stack, chunk, 2);
+	if (n1 > n2)
+		s_ab(&stack->a, 'a');
+	else
+		return ;
 }

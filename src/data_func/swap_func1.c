@@ -51,16 +51,15 @@ void	pb(t_circ_buff *b, t_circ_buff *a)
 
 void	r_ab(t_circ_buff *c, char stack)
 {
-	int	i;
 	int	next;
+	int	cur;
 
-	i = -1;
-	c->head = c->tail;
-	while (++i < c->size - 1 && c->size >= 2)
+	cur = c->tail;
+	while (cur != c->head && c->size >= 2)
 	{
-		next = (c->head + 1) % c->size; 
-		ft_swap(&c->buff[c->head], &c->buff[next]);
-		c->head = next_pos(c->head, c->size);
+		next = next_pos(cur, c->size);
+		ft_swap(&c->buff[cur], &c->buff[next]);
+		c->head = next_pos(cur, c->size);
 	}
 	if (stack == 'a')
 		ft_printf("ra\n");
@@ -70,16 +69,15 @@ void	r_ab(t_circ_buff *c, char stack)
 
 void	rr_ab(t_circ_buff *c, char stack)
 {
-	int	i;
 	int	prev;
+	int	cur;
 
-	i = -1;
-	c->head = prev_pos(c->size - 1, c->size);
-	while (++i < c->size && c->size >= 2)
+	cur = c->head;
+	while (cur != c->tail && c->size >= 2)
 	{
-		prev = prev_pos(c->head, c->size);
-		ft_swap(&c->buff[c->head], &c->buff[prev]);
-		c->head = next_pos(c->head, c->size);
+		prev = prev_pos(cur, c->size);
+		ft_swap(&c->buff[cur], &c->buff[prev]);
+		cur = prev_pos(cur, c->size);
 	}
 	if (stack == 'a')
 		ft_printf("rra\n");

@@ -20,11 +20,11 @@
 
 void	first_sort(t_stacks *stacks)
 {
-	t_chunk *basic_chunk;
+	t_chunk basic_chunk;
 
-	basic_chunk.size = stacks.a.size;
+	basic_chunk.size = stacks->a.size;
 	basic_chunk.loc = TOP_A;
-	rec_sort(stacks, basic_chunk);
+	rec_sort(stacks, &basic_chunk);
 }
 
 void	split_loc (enum e_loc loc, t_chunk *min, t_chunk *mid, t_chunk *max)
@@ -62,33 +62,53 @@ void	size_init(t_chunk *min, t_chunk *mid, t_chunk *max)
 	max->size = 0;
 }
 
-int	rec_sort(t_stacks *stacks, t_chunk *chunk)
+void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
-	t_split_it	*split;
+	t_split_it	split;
 
-	size_init(&split->min, &split->mid, &split->max)
-	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
-	if (split->size <= 3)
+	if (chunk->size <= 3)
 	{
-		// thre_digit_sort()
+		if (chunk->size == 3)
+			three_digit_sort(stacks, chunk);
+		else if (chunk->size == 2)
+			two_digit_sort(stacks, chunk);
+		return ;
 	}
-	sort_it(stacks, &sort_it);
+	sort_it(stacks, &split, chunk);
 
-	rec_sort(stacks, &sort_it.max);
-	rec_sort(stacks, &sort_it.mid);
-	rec_sort(stacks, &sort_it.min);
+	rec_sort(stacks, &split.max);
+	rec_sort(stacks, &split.mid);
+	rec_sort(stacks, &split.min);
 }
 
-void	sort_it(t_stacks *stacks, t_split_it *split)
+void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 {
-	int	nb_read;
 	int	p1;
 	int	p2;
-
-	nb_read = 0;
-	get_pivots(stacks, &p1, &p2);
-	if (split->loc == TOP_A)
-		sort_top_a(stacks->a, stacks->b, &split);
+	int	next;
+	
+	size_init(&split->min, &split->mid, &split->max);
+	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
+	get_pivots(stacks, chunk->loc, &p1, &p2);
+	while (chunk->size-- > 0)
+	{
+		next = get_nb(stacks, chunk, 1);
+		if (next > p2)
+		{
+			move_from_to(stacks, chunk->loc, split->max.loc);
+			split->max.size++;
+		}
+		else if (next > p1)
+		{
+			move_from_to(stacks, chunk->loc, split->mid.loc);
+			split->mid.size++;
+		}
+		else
+		{
+			move_from_to(stacks, chunk->loc, split->mid.loc);
+			split->mid.size++;
+		}
+	}
 }
 
 
@@ -105,7 +125,7 @@ int	main (int ac, char **av)
 	{
 		if (size >= 6)
 		{
-			first_split(stacks->a, stacks->b);
+			first_sort(stacks);
 		}
 	}
 }

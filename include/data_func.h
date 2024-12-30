@@ -34,7 +34,7 @@ typedef struct s_stacks
 
 /******      get stack    *************/
 t_stacks	*get_stack(char *nbr);
-t_circ_buff	*circ_init(int size);
+t_circ_buff *circ_init(int size, t_circ_buff *c);
 int	circ_pop(t_circ_buff *c, int *data);
 int	circ_push(t_circ_buff *c, int data);
 
