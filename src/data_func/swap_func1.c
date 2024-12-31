@@ -59,7 +59,7 @@ void	r_ab(t_circ_buff *c, char stack)
 	{
 		next = next_pos(cur, c->size);
 		ft_swap(&c->buff[cur], &c->buff[next]);
-		c->head = next_pos(cur, c->size);
+		cur = next_pos(cur, c->size);
 	}
 	if (stack == 'a')
 		ft_printf("ra\n");

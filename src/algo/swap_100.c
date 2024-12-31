@@ -35,19 +35,19 @@ void	split_loc (enum e_loc loc, t_chunk *min, t_chunk *mid, t_chunk *max)
 		mid->loc = TOP_B;
 		max->loc = BOT_A;
 	}
-	if (loc == BOT_A)
+	else if (loc == BOT_A)
 	{
 		min->loc = BOT_B;
 		mid->loc = TOP_B;
 		max->loc = TOP_A;
 	}
-	if (loc == TOP_B)
+	else if (loc == TOP_B)
 	{
 		min->loc = BOT_B;
 		mid->loc = BOT_A;
 		max->loc = TOP_A;
 	}
-	if (loc == BOT_B)
+	else if (loc == BOT_B)
 	{
 		min->loc = TOP_B;
 		mid->loc = BOT_A;
@@ -69,6 +69,7 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 	if (chunk->size <= 3)
 	{
 		if (chunk->size == 3)
+	//CACA IL FAUT FAIRE POUR CHAQUE ZONE GROS CON
 			three_digit_sort(stacks, chunk);
 		else if (chunk->size == 2)
 			two_digit_sort(stacks, chunk);
@@ -90,8 +91,10 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
 	get_pivots(stacks, chunk->loc, &p1, &p2);
-	while (chunk->size-- > 0)
+	//printf("p1 %d, p2 %d\n", p1, p2);
+	while (chunk->size > 0)
 	{
+	//	printf("size %d\n", chunk->size);
 		next = get_nb(stacks, chunk, 1);
 		if (next > p2)
 		{
@@ -105,9 +108,10 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 		}
 		else
 		{
-			move_from_to(stacks, chunk->loc, split->mid.loc);
-			split->mid.size++;
+			move_from_to(stacks, chunk->loc, split->min.loc);
+			split->min.size++;
 		}
+		chunk->size--;
 	}
 }
 

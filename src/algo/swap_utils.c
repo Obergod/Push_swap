@@ -16,18 +16,18 @@
 
 void	get_min_max(t_circ_buff *c, int *min, int *max)
 {
-	int	i;
+	int	cur;
 
-	i = -1;
-	*min = c->buff[c->tail];
-	*max = c->buff[c->tail];
-	while (++i < c->size)
+	cur = c->tail;
+	*min = c->buff[cur];
+	*max = c->buff[cur];
+	while (cur != c->head)
 	{
-		if (c->buff[c->head] < *min)
-			*min = c->buff[c->head];
-		if (c->buff[c->head] > *max)
-			*max = c->buff[c->head];
-		c->head = (c->head + 1) % c->size;
+		if (c->buff[cur] < *min)
+			*min = c->buff[cur];
+		if (c->buff[cur] > *max)
+			*max = c->buff[cur];
+		cur = next_pos(cur, c->size);
 	}
 }
 

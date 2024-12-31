@@ -34,24 +34,15 @@ int	circ_pop(t_circ_buff *c, int *data)
     return (0);
 }
 
-t_circ_buff *circ_init(int size, t_circ_buff *c)
+void	circ_init(int size, t_circ_buff *c)
 {
-	int			*buff;
 	
-	c = (t_circ_buff *)malloc(sizeof(t_circ_buff));
-	if (!c)
-		return (NULL);
-	buff = (int *)malloc(sizeof(int) * size);
-		if (!buff)
-	{
-		free(c);
-		return (NULL);
-	}
-	c->buff = buff;
+	c->buff = (int *)malloc(sizeof(int) * size);
+	if (!c->buff)
+		return ;
 	c->head = 0;
 	c->tail = 0;
 	c->size = size;
-	return (c);
 }
 
 t_stacks	*stacks_init(int size)
@@ -81,12 +72,19 @@ t_stacks	*get_stack(char *nbr)
 	i = 0;
 	nb = ft_split(nbr, ' ');
 	size = count_words(nbr, ' ');
-	stacks = stacks_init(size + 1);
-	while (!circ_full(&stacks->a))
+	stacks = stacks_init(size);
+	while (nb[i])
 	{
-		circ_push(&stacks->a, ft_atoi(nb[i]));
+		stacks->a.buff[i] = ft_atoi(nb[i]);
 		i++;
 	}
+	i = 0;
+	while (i < size)
+	{
+		printf("stack %d\n", stacks->a.buff[i]);
+		i++;
+	}
+	stacks->a.head = size - 1;
 	free(nb);
 	return (stacks);
 }

@@ -40,5 +40,7 @@ int	prev_pos(int pos, int size)
 
 int	next_pos(int pos, int size)
 {
-	return ((pos + 1) % size);
+	if (pos == size - 1)
+		return (0);
+	return (pos + 1);
 }
