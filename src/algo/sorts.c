@@ -42,7 +42,7 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 	return (s->buff[value]);
 }
 
-void	three_digit_sort(t_stacks *stack, t_chunk *chunk)
+void	sort_three_a(t_stacks *stack, t_chunk *chunk)
 {
 	int	n1;
 	int	n2;
@@ -78,8 +78,11 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 
 	n1 = get_nb(stack, chunk, 1);
 	n2 = get_nb(stack, chunk, 2);
+	if (chunk->loc == BOT_A || chunk->loc == TOP_B || chunk->loc == BOT_B)
+	{
+		move_from_to(stack, chunk->loc, TOP_A);
+		move_from_to(stack, chunk->loc, TOP_A);
+	}
 	if (n1 > n2)
 		s_ab(&stack->a, 'a');
-	else
-		return ;
 }

@@ -66,19 +66,5 @@ void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
 	*p1 = min + (range / 3);
 	*p2 = min + ((range * 2) / 3);
 }
-/*
-t_split_it	*split_it_init()
-{
-	t_split_it	*s;
 
-	s = malloc(sizeof(t_split_it));
-	if (!s)
-		return (NULL);
-	s->min.loc = BOTTOM_B;
-	s->min.size = 0;
-	s->mid.loc = TOP_B;
-	s->mid.size = 0;
-	s->max.loc = TOP_A;
-	s->max.size = 0;
-	return (s);
-}*/
+
