@@ -13,10 +13,15 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-void	sort_three(t_stacks *stacks, t_chunk *chunk)
+void	sort_three(t_stacks *stack, t_chunk *chunk)
 {
+	t_circ_buff *s;
+	int			max;
+
+	s = wich_stack(stack, chunk->loc);
+	max = chunk_max(stack, chunk, 3);
 	if (chunk->loc == TOP_A)
-		sort_three_top_a();
+		sort_three_top_a(stack, chunk, s, max);
 	else if (chunk->loc == BOT_A)
 		sort_three_bot_a();
 	else if (chunk->loc == TOP_B)
@@ -25,23 +30,25 @@ void	sort_three(t_stacks *stacks, t_chunk *chunk)
 		sort_three_bot_b();
 }
 
-void	sort_three_top_a(t_stacks *stack, t_chunk *chunk);
+void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max);
 {
-	int	max;
-	int	cur;
+	int	next;
 
-	cur = stack->a.buff[stack->a.tail];
-	max = chunk_max(stack, chunk, 3);
-	if (cur == max)
+	next = next_pos(a->tail, a->size);
+	if (a->buff[a->tail] == max)
+	{
+		s_ab(&stack->a, 'a');
+		r_ab(&stack->a, 'a');
+		s_ab(&stack->a, 'a');
+		rr_ab(&stack->a, 'a');
+	}
+	else if (a->buff[next] == max)
 	{
 		r_ab(&stack->a, 'a');
-		pb(&stack->a, 'a');
-		pb(&stack->a, 'a');
+		s_ab(&stack->a, 'a');
 		rr_ab(&stack->a, 'a');
-		pa(&stack->b, 'b');
-		pa(&stack->b, 'b');
 	}
-	sort_two
+	two_digit_sort(stack, chunk);
 }
 
 /*
