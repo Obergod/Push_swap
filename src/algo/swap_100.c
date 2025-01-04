@@ -73,6 +73,8 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 			three_digit_sort(stacks, chunk);
 		else if (chunk->size == 2)
 			two_digit_sort(stacks, chunk);
+		else if (chunk->size == 1)
+			one_digit_sort(stacks, chunk);
 		return ;
 	}
 	sort_it(stacks, &split, chunk);

@@ -14,8 +14,8 @@
 # define DATA_FUNC_H
 
 #include <stdint.h>
-#include "libft.h"
-# include "ft_printf.h"
+//#include "libft.h"
+//# include "ft_printf.h"
 
 typedef struct s_circ_buff
 {

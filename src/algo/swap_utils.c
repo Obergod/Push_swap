@@ -30,8 +30,9 @@ void	get_min_max(t_circ_buff *c, int *min, int *max)
 		cur = next_pos(cur, c->size);
 	}
 }
-
-int	sorted(int *data)
+//         --A REFAIRE--
+/*
+int	sorted(t_circ_buff *stack)
 {
 	int	i;
 	int	stock;
@@ -41,7 +42,7 @@ int	sorted(int *data)
 //		return (1);
 	while (data[i])
 	{
-		stock = data[i];
+		stock = [i];
 		if (stock < data[i] && data[i + 1] < stock)
 			return (0);
 		if (stock > data[i] && data[i + 1] > stock)
@@ -50,7 +51,7 @@ int	sorted(int *data)
 	}
 	return (1);
 }
-
+*/
 void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
 {
 	int	min;
@@ -67,4 +68,52 @@ void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
 	*p2 = min + ((range * 2) / 3);
 }
 
+int	chunk_max(t_stacks *stack, t_chunk *chunk, int i)
+{
+	int	max;
+	int	cur;
+	t_circ_buff *s;
 
+	s = wich_stack(stack, chunk->loc);
+	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+	{
+		cur = s->tail;
+		max = s->tail;
+	}
+	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+	{
+		cur = s->head;
+		max = s->head;
+	}
+	while (--i > 0)
+	{
+		if (max < s->buff[cur])
+			max = s->buff[cur];
+		if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+			next_pos(s->size, cur);
+		else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+			prev_pos(s->size, cur);
+	}
+	return (max);
+}
+
+int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
+{
+	int	value;
+	t_circ_buff *s;
+
+	s = wich_stack(stack, chunk->loc);
+	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+	{
+		value = s->tail;
+		while (--i > 0)
+			next_pos(s->size, value);
+	}
+	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+	{
+		value = s->head;
+		while (--i > 0)
+			prev_pos(s->size, value);
+	}
+	return (s->buff[value]);
+}

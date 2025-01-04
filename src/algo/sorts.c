@@ -21,26 +21,6 @@ t_circ_buff *wich_stack(t_stacks *stack, enum e_loc loc)
 		return (&stack->b);
 }
 
-int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
-{
-	int	value;
-	t_circ_buff *s;
-
-	s = wich_stack(stack, chunk->loc);
-	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
-	{
-		value = s->tail;
-		while (--i > 0)
-			next_pos(s->size, value);
-	}
-	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
-	{
-		value = s->head;
-		while (--i > 0)
-			prev_pos(s->size, value);
-	}
-	return (s->buff[value]);
-}
 
 void	sort_three_a(t_stacks *stack, t_chunk *chunk)
 {
@@ -85,4 +65,10 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 	}
 	if (n1 > n2)
 		s_ab(&stack->a, 'a');
+}
+
+void	one_digit_sort(t_stacks *stack, t_chunk *chunk)
+{
+	if (chunk->loc == BOT_A || chunk->loc == TOP_B || chunk->loc == BOT_B)
+		move_from_to(stack, chunk->loc, TOP_A);
 }
