@@ -65,10 +65,12 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 	}
 	if (n1 > n2)
 		s_ab(&stack->a, 'a');
+	chunk->size -= 2;
 }
 
 void	one_digit_sort(t_stacks *stack, t_chunk *chunk)
 {
 	if (chunk->loc == BOT_A || chunk->loc == TOP_B || chunk->loc == BOT_B)
 		move_from_to(stack, chunk->loc, TOP_A);
+	chunk->size -= 1;
 }

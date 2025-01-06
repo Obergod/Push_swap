@@ -14,14 +14,16 @@
 #include "push_swap.h"
 
 
-void	get_min_max(t_circ_buff *c, int *min, int *max)
+void	get_min_max(t_circ_buff *c, int *min, int *max, int size)
 {
 	int	cur;
+	int	i;
 
+	i = -1;
 	cur = c->tail;
 	*min = c->buff[cur];
 	*max = c->buff[cur];
-	while (cur != c->head)
+	while (++i < size)
 	{
 		if (c->buff[cur] < *min)
 			*min = c->buff[cur];
@@ -52,22 +54,37 @@ int	sorted(t_circ_buff *stack)
 	return (1);
 }
 */
-void	get_pivots(t_stacks *stack, enum e_loc loc, int *p1, int *p2)
+
+void	get_pivots(t_stacks *stack, int size, enum e_loc loc, int *p1, int *p2)
 {
 	int	min;
 	int	max;
 	int	range;
 
 	if (loc == TOP_A || loc == BOT_A)
-		get_min_max(&stack->a, &min, &max);
+		get_min_max(&stack->a, &min, &max, size);
 	else if (loc == TOP_B || loc == BOT_B)
-		get_min_max(&stack->b, &min, &max);
+		get_min_max(&stack->b, &min, &max, size);
 	range = max - min;
 
 	*p1 = min + (range / 3);
 	*p2 = min + ((range * 2) / 3);
 }
 
+/*
+void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
+{
+	*pivot_2 = crt_size / 3;
+	if (loc == TOP_A || loc == BOT_A)
+		*pivot_1 = 2 * crt_size / 3;
+	if (loc == TOP_B || loc == BOT_B)
+		*pivot_1 = crt_size / 2;
+	if ((loc == TOP_A || loc == BOT_A) && crt_size < 15)
+		*pivot_1 = crt_size;
+	if (loc == BOT_B && crt_size < 8)
+		*pivot_2 = crt_size / 2;
+}
+*/
 int	chunk_max(t_stacks *stack, t_chunk *chunk, int i)
 {
 	int	max;

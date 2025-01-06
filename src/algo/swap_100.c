@@ -91,12 +91,13 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 	
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
-	get_pivots(stacks, chunk->loc, &p1, &p2);
-	//printf("p1 %d, p2 %d\n", p1, p2);
-	while (chunk->size > 0)
+	get_pivots(stacks, chunk->size, chunk->loc, &p1, &p2);
+	printf("p1 %d, p2 %d\n", p1, p2);
+	while (chunk->size-- > 0)
 	{
-	//	printf("size %d\n", chunk->size);
+		printf("size %d\n", chunk->size);
 		next = get_nb(stacks, chunk, 1);
+		printf("nb %d\n", next);
 		if (next > p2)
 		{
 			move_from_to(stacks, chunk->loc, split->max.loc);
@@ -112,7 +113,6 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 			move_from_to(stacks, chunk->loc, split->min.loc);
 			split->min.size++;
 		}
-		chunk->size--;
 	}
 }
 
