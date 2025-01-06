@@ -24,6 +24,7 @@ SRC = /algo/swap_100.c \
 	  /algo/swap_utils.c \
 	  /algo/move.c \
 	  /algo/sorts.c \
+	  /algo/sort_three.c \
 	  /data_func/get_stack.c \
 	  /data_func/swap_func1.c \
 	  /data_func/swap_func2.c \

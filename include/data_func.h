@@ -14,8 +14,8 @@
 # define DATA_FUNC_H
 
 #include <stdint.h>
-//#include "libft.h"
-//# include "ft_printf.h"
+#include "libft.h"
+# include "ft_printf.h"
 
 typedef struct s_circ_buff
 {
@@ -33,7 +33,7 @@ typedef struct s_stacks
 
 
 /******      get stack    *************/
-t_stacks	*get_stack(char *nbr);
+t_stacks	*get_stack(char **nbr, int size);
 void	circ_init(int size, t_circ_buff *c);
 int	circ_pop(t_circ_buff *c, int *data);
 int	circ_push(t_circ_buff *c, int data);

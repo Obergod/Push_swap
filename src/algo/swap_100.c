@@ -69,8 +69,7 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 	if (chunk->size <= 3)
 	{
 		if (chunk->size == 3)
-	//CACA IL FAUT FAIRE POUR CHAQUE ZONE GROS CON
-			three_digit_sort(stacks, chunk);
+			sort_three(stacks, chunk);
 		else if (chunk->size == 2)
 			two_digit_sort(stacks, chunk);
 		else if (chunk->size == 1)
@@ -123,17 +122,22 @@ int	main (int ac, char **av)
 {
 	t_stacks	*stacks;
 	//t_split_it	*split;
-	int	size;
-
-	size = count_words(av[1], ' ');
-	stacks = get_stack(av[1]);
-	if (ac > 1)
+	int		size;
+	char	**nb;
+	
+	if (ac == 2)
 	{
-		if (size >= 6)
-		{
-			first_sort(stacks);
-		}
+		size = count_words(av[1], ' ');
+		nb = ft_split(av[1], ' ');
+		stacks = get_stack(nb, size);
 	}
+	if (ac > 2)
+	{
+		size = ac - 1;
+		stacks = get_stack(av + 1, size);
+	}
+	if (size >= 6)
+		first_sort(stacks);
 }
 /*****		RECURSIVE SORT EX		*****/
 /*

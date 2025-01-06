@@ -62,20 +62,16 @@ t_stacks	*stacks_init(int size)
 	return (stacks);
 }
 
-t_stacks	*get_stack(char *nbr)
+t_stacks	*get_stack(char **nbr, int size)
 {
-	char	**nb;
-	int		size;
 	int		i;
 	t_stacks	*stacks;
 
 	i = 0;
-	nb = ft_split(nbr, ' ');
-	size = count_words(nbr, ' ');
 	stacks = stacks_init(size);
-	while (nb[i])
+	while (nbr[i])
 	{
-		stacks->a.buff[i] = ft_atoi(nb[i]);
+		stacks->a.buff[i] = ft_atoi(nbr[i]);
 		i++;
 	}
 	i = 0;
@@ -85,6 +81,5 @@ t_stacks	*get_stack(char *nbr)
 		i++;
 	}
 	stacks->a.head = size - 1;
-	free(nb);
 	return (stacks);
 }

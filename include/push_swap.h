@@ -51,12 +51,20 @@ void	move_from_bot_b(t_stacks *stacks, enum e_loc to);
 
 /******			A TRIER			********/
 t_circ_buff *wich_stack(t_stacks *stack, enum e_loc loc);
-void		rec_sort(t_stacks *stacks, t_chunk *chunk);
-void		sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk);
 void		three_digit_sort(t_stacks *stack, t_chunk *chunk);
-void		two_digit_sort(t_stacks *stack, t_chunk *chunk);
 int			get_nb(t_stacks *stack, t_chunk *chunk, int i);
 int			chunk_max(t_stacks *stack, t_chunk *chunk, int i);
+
+/*****			sort			********/
+void	rec_sort(t_stacks *stacks, t_chunk *chunk);
+void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk);
 void	one_digit_sort(t_stacks *stack, t_chunk *chunk);
+void	two_digit_sort(t_stacks *stack, t_chunk *chunk);
+void	three_digit_sort_a(t_stacks *stack, t_chunk *chunk);
+void	sort_three(t_stacks *stack, t_chunk *chunk);
+void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max);
+void	sort_three_bot_a(t_stacks *stacks, t_chunk *chunk, t_circ_buff *a, int max);
+void	sort_three_top_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
+void	sort_three_bot_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
 
 #endif
