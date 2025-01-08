@@ -101,12 +101,15 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 	int	p1;
 	int	p2;
 	int	next;
+	int remaining;
 	
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
 	get_pivots(stacks, chunk, &p1, &p2);
 	printf("p1 %d, p2 %d\n", p1, p2);
-	while (chunk->size-- > 0)
+
+	remaining = chunk->size;
+	while (remaining-- > 0)
 	{
 		printf("size %d\n", chunk->size);
 		next = get_nb(stacks, chunk, 1);

@@ -126,6 +126,9 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 	t_circ_buff *s;
 
 	s = wich_stack(stack, chunk->loc);
+printf("DEBUG: chunk loc=%d, chunk size=%d, stack head=%d, tail=%d\n",
+           chunk->loc, chunk->size, s->head, s->tail);
+
 	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
 	{
 		value = s->tail;
@@ -138,5 +141,7 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 		while (--i > 0)
 			value = prev_pos(value, s->size);
 	}
+	printf("DEBUG: value=%d\n", value);
+	printf("DEBUG: Returning buff[%d] = %d\n", value, s->buff[value]);
 	return (s->buff[value]);
 }
