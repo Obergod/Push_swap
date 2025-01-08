@@ -14,22 +14,28 @@
 #include "push_swap.h"
 
 
-void	get_min_max(t_circ_buff *c, int *min, int *max, int size)
+void	get_min_max(t_circ_buff *c, t_chunk *chunk, int *min, int *max)
 {
 	int	cur;
 	int	i;
 
 	i = -1;
-	cur = c->tail;
+	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+		cur = c->tail;
+	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+		cur = c->head;
 	*min = c->buff[cur];
 	*max = c->buff[cur];
-	while (++i < size)
+	while (++i < chunk->size)
 	{
 		if (c->buff[cur] < *min)
 			*min = c->buff[cur];
 		if (c->buff[cur] > *max)
 			*max = c->buff[cur];
-		cur = next_pos(cur, c->size);
+		if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+			cur = next_pos(cur, c->size);
+		else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
+			cur = prev_pos(cur, c->size);
 	}
 }
 //         --A REFAIRE--
@@ -55,16 +61,16 @@ int	sorted(t_circ_buff *stack)
 }
 */
 
-void	get_pivots(t_stacks *stack, int size, enum e_loc loc, int *p1, int *p2)
+void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
 {
 	int	min;
 	int	max;
 	int	range;
 
-	if (loc == TOP_A || loc == BOT_A)
-		get_min_max(&stack->a, &min, &max, size);
-	else if (loc == TOP_B || loc == BOT_B)
-		get_min_max(&stack->b, &min, &max, size);
+	if (chunk->loc == TOP_A || chunk->loc == BOT_A)
+		get_min_max(&stack->a, chunk, &min, &max);
+	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
+		get_min_max(&stack->b, chunk, &min, &max);
 	range = max - min;
 
 	*p1 = min + (range / 3);
@@ -95,21 +101,21 @@ int	chunk_max(t_stacks *stack, t_chunk *chunk, int i)
 	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
 	{
 		cur = s->tail;
-		max = s->tail;
+		max = s->buff[cur];
 	}
 	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
 	{
 		cur = s->head;
-		max = s->head;
+		max = s->buff[cur];
 	}
-	while (--i > 0)
+	while (i-- > 0)
 	{
 		if (max < s->buff[cur])
 			max = s->buff[cur];
 		if (chunk->loc == TOP_A || chunk->loc == TOP_B)
-			next_pos(s->size, cur);
+			cur = next_pos(cur, s->size);
 		else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
-			prev_pos(s->size, cur);
+			cur = prev_pos(cur, s->size);
 	}
 	return (max);
 }
@@ -124,13 +130,13 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 	{
 		value = s->tail;
 		while (--i > 0)
-			next_pos(s->size, value);
+			value = next_pos(value, s->size);
 	}
 	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
 	{
 		value = s->head;
 		while (--i > 0)
-			prev_pos(s->size, value);
+			value = prev_pos(value, s->size);
 	}
 	return (s->buff[value]);
 }

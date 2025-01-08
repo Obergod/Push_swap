@@ -31,7 +31,7 @@ void	pa(t_circ_buff *a, t_circ_buff *b)
 {
 	int	value;
 
-	if (circ_empty(b) || b->size < 2)
+	if (circ_empty(b))
 		return ;
 	circ_pop(b, &value);
 	circ_push(a, value);
