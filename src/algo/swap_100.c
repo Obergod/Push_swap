@@ -66,6 +66,8 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
 	t_split_it	split;
 
+	if (is_chunk_sorted(stacks, chunk))
+		return ;
 	if (chunk->size <= 3)
 	{
 		if (chunk->size == 3)
@@ -96,26 +98,24 @@ void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
 		*pivot_2 = crt_size / 2;
 }
 
+
 void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 {
 	int	p1;
 	int	p2;
 	int	next;
-	int remaining;
 	
 	size_init(&split->min, &split->mid, &split->max);
-	split_loc (chunk->loc, &split->min, &split->mid, &split->max);
+	split_loc(chunk->loc, &split->min, &split->mid, &split->max);
 	get_pivots(stacks, chunk, &p1, &p2);
-	printf("p1 %d, p2 %d\n", p1, p2);
-
-	remaining = chunk->size;
-	while (remaining-- > 0)
+	ft_printf("Chunk size: %d, p1: %d, p2: %d\n", chunk->size, p1, p2);
+	while (chunk->size-- > 0)
 	{
-		printf("size %d\n", chunk->size);
 		next = get_nb(stacks, chunk, 1);
-		printf("nb %d\n", next);
+		ft_printf("Next number: %d\n", next);
 		if (next > p2)
 		{
+			ft_printf("Moving to max\n");
 			move_from_to(stacks, chunk->loc, split->max.loc);
 			split->max.size++;
 		}
@@ -154,6 +154,7 @@ int	main (int ac, char **av)
 	}
 	if (size >= 6)
 		first_sort(stacks);
+	return (0);
 }
 /*****		RECURSIVE SORT EX		*****/
 /*

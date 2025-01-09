@@ -67,4 +67,6 @@ void	sort_three_bot_a(t_stacks *stacks, t_chunk *chunk, t_circ_buff *a, int max)
 void	sort_three_top_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
 void	sort_three_bot_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
 
+int	is_chunk_sorted(t_stacks *stacks, t_chunk *chunk);
+
 #endif

@@ -72,9 +72,17 @@ void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
 	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
 		get_min_max(&stack->b, chunk, &min, &max);
 	range = max - min;
-
-	*p1 = min + (range / 3);
-	*p2 = min + ((range * 2) / 3);
+	
+	if (chunk->loc == TOP_A || chunk->loc == BOT_A)
+	{
+		*p2 = max - (range / 3);     // Upper third point
+		*p1 = max - ((2 * range) / 3); // Lower third point
+	}
+	else
+	{
+		*p2 = min + (range / 2);     // Middle point
+		*p1 = min + (range / 3);     // Lower third point
+	}
 }
 
 /*
@@ -88,36 +96,24 @@ void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
 	if ((loc == TOP_A || loc == BOT_A) && crt_size < 15)
 		*pivot_1 = crt_size;
 	if (loc == BOT_B && crt_size < 8)
-		*pivot_2 = crt_size / 2;
+		*p2 = crt_size / 2;
 }
 */
-int	chunk_max(t_stacks *stack, t_chunk *chunk, int i)
+int chunk_max(t_stacks *stack, t_chunk *chunk, int size)
 {
-	int	max;
-	int	cur;
-	t_circ_buff *s;
+    int max;
+    int i;
+    int	cur;
 
-	s = wich_stack(stack, chunk->loc);
-	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
-	{
-		cur = s->tail;
-		max = s->buff[cur];
-	}
-	else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
-	{
-		cur = s->head;
-		max = s->buff[cur];
-	}
-	while (i-- > 0)
-	{
-		if (max < s->buff[cur])
-			max = s->buff[cur];
-		if (chunk->loc == TOP_A || chunk->loc == TOP_B)
-			cur = next_pos(cur, s->size);
-		else if (chunk->loc == BOT_A || chunk->loc == BOT_B)
-			cur = prev_pos(cur, s->size);
-	}
-	return (max);
+	i = -1;
+    max = get_nb(stack, chunk, 1);
+    while (i++ < size)
+    {
+        cur = get_nb(stack, chunk, i);
+        if (cur > max)
+            max = cur;
+    }
+    return (max);
 }
 
 int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
@@ -126,8 +122,8 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 	t_circ_buff *s;
 
 	s = wich_stack(stack, chunk->loc);
-printf("DEBUG: chunk loc=%d, chunk size=%d, stack head=%d, tail=%d\n",
-           chunk->loc, chunk->size, s->head, s->tail);
+/*printf("DEBUG: chunk loc=%d, chunk size=%d, stack head=%d, tail=%d\n",
+           chunk->loc, chunk->size, s->head, s->tail);*/
 
 	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
 	{
@@ -141,7 +137,31 @@ printf("DEBUG: chunk loc=%d, chunk size=%d, stack head=%d, tail=%d\n",
 		while (--i > 0)
 			value = prev_pos(value, s->size);
 	}
-	printf("DEBUG: value=%d\n", value);
-	printf("DEBUG: Returning buff[%d] = %d\n", value, s->buff[value]);
+//	printf("DEBUG: value=%d\n", value);
+//	printf("DEBUG: Returning buff[%d] = %d\n", value, s->buff[value]);
 	return (s->buff[value]);
+}
+
+int	is_chunk_sorted(t_stacks *stacks, t_chunk *chunk)
+{
+	int	i;
+	int	current;
+	int	next;
+
+	if (chunk->loc != TOP_A && chunk->loc != BOT_A)
+		return (0);
+	
+	if (chunk->size <= 1)
+		return (1);
+	
+	i = 1;
+	while (i < chunk->size)
+	{
+		current = get_nb(stacks, chunk, i);
+		next = get_nb(stacks, chunk, i + 1);
+		if (current > next)
+			return (0);
+		i++;
+	}
+	return (1);
 }

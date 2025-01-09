@@ -74,12 +74,12 @@ t_stacks	*get_stack(char **nbr, int size)
 		stacks->a.buff[i] = ft_atoi(nbr[i]);
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < size)
 	{
 		printf("stack %d\n", stacks->a.buff[i]);
 		i++;
-	}
+	}*/
 	stacks->a.head = size - 1;
 	return (stacks);
 }
