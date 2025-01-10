@@ -66,8 +66,14 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
 	t_split_it	split;
 
-	if (is_chunk_sorted(stacks, chunk))
-		return ;
+	if (chunk->loc == BOT_B && chunk->size == stacks->b.size)
+		chunk->loc = TOP_B;
+	if (chunk->loc == BOT_A && chunk->size == stacks->a.size)
+		chunk->loc = TOP_A;
+	easy_sort(stacks, chunk);
+	
+	/*if (is_chunk_sorted(stacks, chunk))
+		return;*/
 	if (chunk->size <= 3)
 	{
 		if (chunk->size == 3)
@@ -76,14 +82,14 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 			two_digit_sort(stacks, chunk);
 		else if (chunk->size == 1)
 			one_digit_sort(stacks, chunk);
-		return ;
+		return;
 	}
 	sort_it(stacks, &split, chunk);
-
 	rec_sort(stacks, &split.max);
 	rec_sort(stacks, &split.mid);
 	rec_sort(stacks, &split.min);
 }
+
 
 void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
 {
@@ -104,32 +110,39 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 	int	p1;
 	int	p2;
 	int	next;
+	int	max;
 	
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc(chunk->loc, &split->min, &split->mid, &split->max);
-	get_pivots(stacks, chunk, &p1, &p2);
-	ft_printf("Chunk size: %d, p1: %d, p2: %d\n", chunk->size, p1, p2);
+	set_third_pivots(chunk->loc, chunk->size, &p1, &p2);
+	max = chunk_max(stacks, chunk, chunk->size);
+	ft_printf("\n=== Split for chunk size %d at loc %d ===\n", chunk->size, chunk->loc);
+	ft_printf("Pivots: p1=%d, p2=%d, max=%d\n", p1, p2, max);
 	while (chunk->size-- > 0)
 	{
 		next = get_nb(stacks, chunk, 1);
-		ft_printf("Next number: %d\n", next);
-		if (next > p2)
+		ft_printf("Number %d -> ", next);
+		if (next > max - p2)
 		{
-			ft_printf("Moving to max\n");
+			ft_printf("max\n");
 			move_from_to(stacks, chunk->loc, split->max.loc);
 			split->max.size++;
 		}
-		else if (next > p1)
+		else if (next > max - p1)
 		{
+			ft_printf("mid\n");
 			move_from_to(stacks, chunk->loc, split->mid.loc);
 			split->mid.size++;
 		}
 		else
 		{
+			ft_printf("min\n");
 			move_from_to(stacks, chunk->loc, split->min.loc);
 			split->min.size++;
 		}
 	}
+	ft_printf("Split sizes: max=%d, mid=%d, min=%d\n", 
+		split->max.size, split->mid.size, split->min.size);
 }
 
 
@@ -173,3 +186,69 @@ int	main (int ac, char **av)
 		 	 recursive_chunk_sort(&split_chunks.min);
 		}
 */
+
+int value_check_next(t_stacks *stack, t_chunk *chunk)
+{
+    int first = get_nb(stack, chunk, 1);
+    int next = get_nb(stack, chunk, 2);
+    
+    // Check if numbers are sequential
+    return (first == next + 1);
+}
+
+void handle_sequential(t_stacks *stacks, t_chunk *chunk)
+{
+    t_chunk a_chunk;
+    
+    a_chunk.loc = TOP_A;
+    if (chunk->loc == TOP_B)
+    {
+        s_ab(&stacks->b, 'b');
+        pa(&stacks->a, &stacks->b);
+        if (get_nb(stacks, chunk, 1) == get_nb(stacks, &a_chunk, 1) - 1)
+        {
+            pa(&stacks->a, &stacks->b);
+            chunk->size--;
+        }
+    }
+    else if (chunk->loc == BOT_A)
+    {
+        rr_ab(&stacks->a, 'a');
+        rr_ab(&stacks->a, 'a');
+        s_ab(&stacks->a, 'a');
+        if (get_nb(stacks, chunk, 1) == get_nb(stacks, &a_chunk, 2) - 1)
+            chunk->size--;
+        else
+            r_ab(&stacks->a, 'a');
+    }
+    else if (chunk->loc == BOT_B)
+    {
+        rr_ab(&stacks->b, 'b');
+        rr_ab(&stacks->b, 'b');
+        pa(&stacks->a, &stacks->b);
+        if (get_nb(stacks, chunk, 1) == get_nb(stacks, &a_chunk, 1) - 1)
+        {
+            pa(&stacks->a, &stacks->b);
+            chunk->size--;
+        }
+        else
+            r_ab(&stacks->b, 'b');
+    }
+    chunk->size--;
+}
+
+void easy_sort(t_stacks *stacks, t_chunk *chunk)
+{
+    t_chunk a_chunk;
+    
+    a_chunk.loc = TOP_A;
+    while (chunk->loc != TOP_A && chunk->size)
+    {
+        if (get_nb(stacks, chunk, 1) == get_nb(stacks, &a_chunk, 1) + 1 && chunk->size > 0)
+            one_digit_sort(stacks, chunk);
+        else if (get_nb(stacks, chunk, 2) == get_nb(stacks, &a_chunk, 1) + 1 && chunk->size > 1)
+            handle_sequential(stacks, chunk);
+        else
+            break;
+    }
+}

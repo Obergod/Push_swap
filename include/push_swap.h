@@ -64,9 +64,16 @@ void	three_digit_sort_a(t_stacks *stack, t_chunk *chunk);
 void	sort_three(t_stacks *stack, t_chunk *chunk);
 void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max);
 void	sort_three_bot_a(t_stacks *stacks, t_chunk *chunk, t_circ_buff *a, int max);
-void	sort_three_top_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
-void	sort_three_bot_b(t_stacks *stacks, t_chunk *chunk, t_circ_buff *b, int max);
+void	sort_three_bot_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max);
+void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max);
 
 int	is_chunk_sorted(t_stacks *stacks, t_chunk *chunk);
+
+int     value_check_next(t_stacks *stack, t_chunk *chunk);
+void    handle_sequential(t_stacks *stack, t_chunk *chunk);
+
+int current_size(t_circ_buff *c);
+
+void    easy_sort(t_stacks *stacks, t_chunk *chunk);
 
 #endif

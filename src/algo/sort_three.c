@@ -56,9 +56,9 @@ void	sort_three_bot_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max)
 {
 	int	next;
 
+	rr_ab(&stack->a, 'a');
+	rr_ab(&stack->a, 'a');
 	next = next_pos(a->tail, a->size);
-	rr_ab(&stack->a, 'a');
-	rr_ab(&stack->a, 'a');
 	if (a->buff[a->tail] == max)
 	{
 		s_ab(&stack->a, 'a');
@@ -81,8 +81,8 @@ void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
 {
 	int	next;
 
-	next = next_pos(b->tail, b->size);
 	pa(&stack->a, &stack->b);
+	next = next_pos(b->tail, b->size);
 	if (b->buff[b->tail] == max)
 	{
 		pa(&stack->a, &stack->b);
@@ -106,23 +106,23 @@ void	sort_three_bot_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
 {
 	int	next;
 
+	rr_ab(&stack->b, 'b');
+	rr_ab(&stack->b, 'b');
 	next = next_pos(b->tail, b->size);
-	rr_ab(&stack->b, 'a');
-	rr_ab(&stack->b, 'a');
 	if (b->buff[b->tail] == max)
 	{
 		pa(&stack->a, &stack->b);
-		rr_ab(&stack->b, 'a');
+		rr_ab(&stack->b, 'b');
 	}
 	else if (b->buff[next] == max)
 	{
 		s_ab(&stack->b, 'b');
 		pa(&stack->a, &stack->b);
-		rr_ab(&stack->b, 'a');
+		rr_ab(&stack->b, 'b');
 	}
 	else
 	{
-		rr_ab(&stack->b, 'a');
+		rr_ab(&stack->b, 'b');
 		pa(&stack->a, &stack->b);
 	}
 	chunk->loc = TOP_B;
