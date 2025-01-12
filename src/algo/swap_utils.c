@@ -61,32 +61,25 @@ int	sorted(t_circ_buff *stack)
 }
 */
 
-void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
+void	get_pivots(enum e_loc loc, int size, int *p1, int *p2)
 {
-	int	min;
-	int	max;
-	int	range;
-
-	if (chunk->loc == TOP_A || chunk->loc == BOT_A)
-		get_min_max(&stack->a, chunk, &min, &max);
-	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
-		get_min_max(&stack->b, chunk, &min, &max);
-	
-	range = max - min;
-	
-	if (chunk->loc == TOP_A || chunk->loc == BOT_A)
+	if (size > 200)  // For larger chunks
 	{
-		*p2 = max - (range / 3);
-		*p1 = max - ((2 * range) / 3);
+		*p2 = size / 5;  // Split into fifths (20%)
+		if (loc == TOP_A || loc == BOT_A)
+			*p1 = 4 * size / 5;  // 80%
+		if (loc == TOP_B || loc == BOT_B)
+			*p1 = 3 * size / 5;  // 60%
 	}
-	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
+	else  // Keep current logic for smaller chunks
 	{
-		*p2 = min + ((2 * range) / 3);
-		*p1 = min + (range / 3);
+		*p2 = size / 3;
+		if (loc == TOP_A || loc == BOT_A)
+			*p1 = 2 * size / 3;
+		if (loc == TOP_B || loc == BOT_B)
+			*p1 = size / 2;
 	}
 }
-
-
 
 int chunk_max(t_stacks *stack, t_chunk *chunk, int size)
 {

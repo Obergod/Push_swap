@@ -88,17 +88,6 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 	rec_sort(stacks, &split.min);
 }
 
-void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
-{
-	*pivot_2 = crt_size / 3;
-	if (loc == TOP_A || loc == BOT_A)
-		*pivot_1 = 2 * crt_size / 3;
-	if (loc == TOP_B || loc == BOT_B)
-		*pivot_1 = crt_size / 2;
-	/*if (loc == BOT_B && crt_size < 8)
-		*pivot_2 = crt_size / 2;*/
-}
-
 void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 {
 	int p1;
@@ -108,7 +97,7 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc(chunk->loc, &split->min, &split->mid, &split->max);
-	set_third_pivots(chunk->loc, chunk->size, &p1, &p2);
+	get_pivots(chunk->loc, chunk->size, &p1, &p2);
 	max = chunk_max(stacks, chunk, chunk->size);
 	while (chunk->size-- > 0)
 	{

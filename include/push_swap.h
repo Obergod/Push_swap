@@ -39,7 +39,7 @@ typedef struct	s_split_it
 t_split_it	*split_it_init();
 void		first_sort(t_stacks *stacks);
 void	get_min_max(t_circ_buff *c, t_chunk *chunk, int *min, int *max);
-void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2);
+void	get_pivots(enum e_loc loc, int size, int *p1, int *p2);
 int			sorted(int *data);
 
 /*******		move			*********/
