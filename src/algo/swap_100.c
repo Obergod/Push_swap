@@ -66,19 +66,17 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 {
 	t_split_it	split;
 
-	if (chunk->loc == BOT_B && chunk->size == stacks->b.size)
+	/*if (chunk->loc == BOT_B && chunk->size == stacks->b.size)
 		chunk->loc = TOP_B;
 	if (chunk->loc == BOT_A && chunk->size == stacks->a.size)
 		chunk->loc = TOP_A;
-	easy_sort(stacks, chunk);
+	easy_sort(stacks, chunk);*/
 	
-	/*if (is_chunk_sorted(stacks, chunk))
-		return;*/
 	if (chunk->size <= 3)
 	{
 		if (chunk->size == 3)
 			sort_three(stacks, chunk);
-		else if (chunk->size == 2)
+		if (chunk->size == 2)
 			two_digit_sort(stacks, chunk);
 		else if (chunk->size == 1)
 			one_digit_sort(stacks, chunk);
@@ -90,7 +88,6 @@ void	rec_sort(t_stacks *stacks, t_chunk *chunk)
 	rec_sort(stacks, &split.min);
 }
 
-
 void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
 {
 	*pivot_2 = crt_size / 3;
@@ -98,51 +95,40 @@ void	set_third_pivots(enum e_loc loc, int crt_size, int *pivot_1, int *pivot_2)
 		*pivot_1 = 2 * crt_size / 3;
 	if (loc == TOP_B || loc == BOT_B)
 		*pivot_1 = crt_size / 2;
-	if ((loc == TOP_A || loc == BOT_A) && crt_size < 15)
-		*pivot_1 = crt_size;
-	if (loc == BOT_B && crt_size < 8)
-		*pivot_2 = crt_size / 2;
+	/*if (loc == BOT_B && crt_size < 8)
+		*pivot_2 = crt_size / 2;*/
 }
-
 
 void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 {
-	int	p1;
-	int	p2;
-	int	next;
-	int	max;
-	
+	int p1;
+	int p2;
+	int next;
+	int max;
+
 	size_init(&split->min, &split->mid, &split->max);
 	split_loc(chunk->loc, &split->min, &split->mid, &split->max);
 	set_third_pivots(chunk->loc, chunk->size, &p1, &p2);
 	max = chunk_max(stacks, chunk, chunk->size);
-	ft_printf("\n=== Split for chunk size %d at loc %d ===\n", chunk->size, chunk->loc);
-	ft_printf("Pivots: p1=%d, p2=%d, max=%d\n", p1, p2, max);
 	while (chunk->size-- > 0)
 	{
 		next = get_nb(stacks, chunk, 1);
-		ft_printf("Number %d -> ", next);
 		if (next > max - p2)
 		{
-			ft_printf("max\n");
 			move_from_to(stacks, chunk->loc, split->max.loc);
 			split->max.size++;
 		}
 		else if (next > max - p1)
 		{
-			ft_printf("mid\n");
 			move_from_to(stacks, chunk->loc, split->mid.loc);
 			split->mid.size++;
 		}
 		else
 		{
-			ft_printf("min\n");
 			move_from_to(stacks, chunk->loc, split->min.loc);
 			split->min.size++;
 		}
 	}
-	ft_printf("Split sizes: max=%d, mid=%d, min=%d\n", 
-		split->max.size, split->mid.size, split->min.size);
 }
 
 
@@ -150,7 +136,6 @@ void	sort_it(t_stacks *stacks, t_split_it *split, t_chunk *chunk)
 int	main (int ac, char **av)
 {
 	t_stacks	*stacks;
-	//t_split_it	*split;
 	int		size;
 	char	**nb;
 	
@@ -165,6 +150,7 @@ int	main (int ac, char **av)
 		size = ac - 1;
 		stacks = get_stack(av + 1, size);
 	}
+	
 	if (size >= 6)
 		first_sort(stacks);
 	return (0);
@@ -187,6 +173,7 @@ int	main (int ac, char **av)
 		}
 */
 
+/*
 int value_check_next(t_stacks *stack, t_chunk *chunk)
 {
     int first = get_nb(stack, chunk, 1);
@@ -252,3 +239,4 @@ void easy_sort(t_stacks *stacks, t_chunk *chunk)
             break;
     }
 }
+*/

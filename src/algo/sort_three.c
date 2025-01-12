@@ -12,6 +12,19 @@
 
 #include "data_func.h"
 #include "push_swap.h"
+void print_stack_state(t_circ_buff *c, char stack_name) 
+{
+    printf("\n=== Stack %c state ===\n", stack_name);
+    printf("head=%d, tail=%d, size=%d\n", c->head, c->tail, c->size);
+    printf("Values: ");
+    
+    int pos = c->tail;
+    do {
+        printf("%d ", c->buff[pos]);
+        pos = next_pos(pos, c->size);
+    } while (pos != next_pos(c->head, c->size));
+    printf("\n===================\n");
+}
 
 void	sort_three(t_stacks *stack, t_chunk *chunk)
 {
@@ -81,8 +94,17 @@ void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
 {
 	int	next;
 
+    print_stack_state(&stack->a, 'A');
+    print_stack_state(&stack->b, 'B');
 	pa(&stack->a, &stack->b);
 	next = next_pos(b->tail, b->size);
+    print_stack_state(&stack->a, 'A');
+    print_stack_state(&stack->b, 'B');
+	printf("b->tail = %d\n", b->tail);
+	printf("next = %d\n", next);
+	printf("b->buff[b->tail] = %d\n", b->buff[b->tail]);
+	printf("b->buff[next] = %d\n", b->buff[next]);
+	printf("max = %d\n", max);
 	if (b->buff[b->tail] == max)
 	{
 		pa(&stack->a, &stack->b);

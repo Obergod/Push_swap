@@ -12,19 +12,6 @@
 
 #include "data_func.h"
 
-void print_stack_state(t_circ_buff *c, char stack_name) 
-{
-    printf("\n=== Stack %c state ===\n", stack_name);
-    printf("head=%d, tail=%d, size=%d\n", c->head, c->tail, c->size);
-    printf("Values: ");
-    
-    int pos = c->tail;
-    do {
-        printf("%d ", c->buff[pos]);
-        pos = next_pos(pos, c->size);
-    } while (pos != next_pos(c->head, c->size));
-    printf("\n===================\n");
-}
 void	s_ab(t_circ_buff *c, char stack)
 {
 	int	next;
@@ -52,8 +39,8 @@ void pa(t_circ_buff *a, t_circ_buff *b)
 	b->tail = next_pos(b->tail, b->size);  // Update B tail
 
 	ft_printf("pa\n");
-    print_stack_state(a, 'A');
-    print_stack_state(b, 'B');
+   // print_stack_state(a, 'A');
+   // print_stack_state(b, 'B');
 }
 
 void pb(t_circ_buff *b, t_circ_buff *a)
@@ -67,8 +54,8 @@ void pb(t_circ_buff *b, t_circ_buff *a)
 	b->tail  = dst;                        // Update A tail
 	a->tail = next_pos(a->tail, a->size);  // Update B tail
     ft_printf("pb\n");
-    print_stack_state(a, 'A');
-    print_stack_state(b, 'B');
+   // print_stack_state(a, 'A');
+   // print_stack_state(b, 'B');
 }
 
 void r_ab(t_circ_buff *c, char stack)
@@ -88,7 +75,7 @@ void r_ab(t_circ_buff *c, char stack)
     c->head = next_pos(c->head, c->size);
     c->buff[c->head] = first_value;
 
-    print_stack_state(c, stack);
+   // print_stack_state(c, stack);
     if (stack == 'a')
         ft_printf("ra\n");
     else if (stack == 'b')
@@ -112,7 +99,7 @@ void	rr_ab(t_circ_buff *c, char stack)
     c->tail = prev_pos(c->tail, c->size);
     c->buff[c->tail] = last_value;
 
-    print_stack_state(c, stack);
+   //   print_stack_state(c, stack);
     if (stack == 'a')
         ft_printf("rra\n");
     else if (stack == 'b')

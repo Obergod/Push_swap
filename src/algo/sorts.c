@@ -56,15 +56,17 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 	int	n1;
 	int	n2;
 
-	n1 = get_nb(stack, chunk, 1);
-	n2 = get_nb(stack, chunk, 2);
+
 	if (chunk->loc == BOT_A || chunk->loc == TOP_B || chunk->loc == BOT_B)
 	{
 		move_from_to(stack, chunk->loc, TOP_A);
 		move_from_to(stack, chunk->loc, TOP_A);
 	}
+	n1 = stack->a.buff[stack->a.tail];
+	n2 = stack->a.buff[next_pos(stack->a.tail, stack->a.size)];
 	if (n1 > n2)
 		s_ab(&stack->a, 'a');
+
 	chunk->size -= 2;
 }
 

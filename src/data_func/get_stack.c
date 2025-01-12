@@ -62,24 +62,55 @@ t_stacks	*stacks_init(int size)
 	return (stacks);
 }
 
+void random_to_rank(int *numbers, int *rank, int size)
+{
+    int i;
+    int j;
+    int count_smaller;
+
+    i = -1;
+    while (++i < size)
+    {
+        j = -1;
+        count_smaller = 0;
+        while (++j < size)
+            if (numbers[j] <= numbers[i])
+                count_smaller++;
+        rank[i] = count_smaller;
+    }
+}
+
 t_stacks	*get_stack(char **nbr, int size)
 {
 	int		i;
 	t_stacks	*stacks;
+	int		*original_numbers;
 
 	i = 0;
 	stacks = stacks_init(size);
+	if (!stacks)
+		return (NULL);
+	
+	// Store original numbers temporarily
+	original_numbers = malloc(sizeof(int) * size);
+	if (!original_numbers)
+	{
+		free(stacks);
+		return (NULL);
+	}
+	
+	// Convert strings to numbers
 	while (nbr[i])
 	{
-		stacks->a.buff[i] = ft_atoi(nbr[i]);
+		original_numbers[i] = ft_atoi(nbr[i]);
 		i++;
 	}
-	/*i = 0;
-	while (i < size)
-	{
-		printf("stack %d\n", stacks->a.buff[i]);
-		i++;
-	}*/
+	
+	// Convert to ranks
+	random_to_rank(original_numbers, stacks->a.buff, size);
+	free(original_numbers);
+	
 	stacks->a.head = size - 1;
+
 	return (stacks);
 }

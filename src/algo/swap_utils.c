@@ -61,7 +61,6 @@ int	sorted(t_circ_buff *stack)
 }
 */
 
-/*
 void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
 {
 	int	min;
@@ -72,6 +71,7 @@ void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
 		get_min_max(&stack->a, chunk, &min, &max);
 	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
 		get_min_max(&stack->b, chunk, &min, &max);
+	
 	range = max - min;
 	
 	if (chunk->loc == TOP_A || chunk->loc == BOT_A)
@@ -79,13 +79,12 @@ void	get_pivots(t_stacks *stack, t_chunk *chunk, int *p1, int *p2)
 		*p2 = max - (range / 3);
 		*p1 = max - ((2 * range) / 3);
 	}
-	else  // For stack B, reverse the logic
+	else if (chunk->loc == TOP_B || chunk->loc == BOT_B)
 	{
 		*p2 = min + ((2 * range) / 3);
 		*p1 = min + (range / 3);
 	}
 }
-*/
 
 
 
@@ -93,13 +92,13 @@ int chunk_max(t_stacks *stack, t_chunk *chunk, int size)
 {
     int max;
     int i;
-    int	cur;
+    int cur;
 
-	i = -1;
+    i = 0;
     max = get_nb(stack, chunk, 1);
-    while (i++ < size)
+    while (++i < size)
     {
-        cur = get_nb(stack, chunk, i);
+        cur = get_nb(stack, chunk, i + 1);
         if (cur > max)
             max = cur;
     }
@@ -112,9 +111,6 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 	t_circ_buff *s;
 
 	s = wich_stack(stack, chunk->loc);
-/*printf("DEBUG: chunk loc=%d, chunk size=%d, stack head=%d, tail=%d\n",
-           chunk->loc, chunk->size, s->head, s->tail);*/
-
 	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
 	{
 		value = s->tail;
@@ -127,8 +123,6 @@ int	get_nb(t_stacks *stack, t_chunk *chunk, int i)
 		while (--i > 0)
 			value = prev_pos(value, s->size);
 	}
-//	printf("DEBUG: value=%d\n", value);
-//	printf("DEBUG: Returning buff[%d] = %d\n", value, s->buff[value]);
 	return (s->buff[value]);
 }
 
