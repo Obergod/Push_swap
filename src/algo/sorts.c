@@ -13,16 +13,32 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-t_circ_buff *wich_stack(t_stacks *stack, enum e_loc loc)
+void	sort_five_only(t_stacks *stack, t_chunk *chunk)
 {
-	if (loc == TOP_A || loc == BOT_A)
-		return (&stack->a);
-	else
-		return (&stack->b);
+	int	count;
+	int	cur;
+
+	count = 0;
+	while (count < 2)
+	{
+		cur = get_nb(stack, chunk, 1);
+		if (cur == 1 || cur == 2)
+		{
+			pb(&stack->b, &stack->a);
+			count++;
+		}
+		else
+			r_ab(&stack->a, 'a');
+	}
+	sort_three_only(stack, chunk);
+	pa(&stack->a, &stack->b);
+	pa(&stack->a, &stack->b);
+	cur = get_nb(stack, chunk, 1);
+	if (cur == 2)
+		s_ab(&stack->a, 'a');
 }
 
-
-void	sort_three_a(t_stacks *stack, t_chunk *chunk)
+void	sort_three_only(t_stacks *stack, t_chunk *chunk)
 {
 	int	n1;
 	int	n2;
@@ -40,12 +56,12 @@ void	sort_three_a(t_stacks *stack, t_chunk *chunk)
 	else if (n3 < n1 && n1 > n2 && n2 > n3)
 	{
 		s_ab(&stack->a, 'a');
-		rr_ab(&stack->a, 'a');	
+		rr_ab(&stack->a, 'a');
 	}
 	else if (n1 < n2 && n2 > n3 && n3 > n1)
 	{
 		s_ab(&stack->a, 'a');
-		r_ab(&stack->a, 'a');	
+		r_ab(&stack->a, 'a');
 	}
 	else if (n3 < n1 && n1 < n2 && n2 > n3)
 		rr_ab(&stack->a, 'a');
@@ -56,7 +72,6 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 	int	n1;
 	int	n2;
 
-
 	if (chunk->loc == BOT_A || chunk->loc == TOP_B || chunk->loc == BOT_B)
 	{
 		move_from_to(stack, chunk->loc, TOP_A);
@@ -66,7 +81,6 @@ void	two_digit_sort(t_stacks *stack, t_chunk *chunk)
 	n2 = stack->a.buff[next_pos(stack->a.tail, stack->a.size)];
 	if (n1 > n2)
 		s_ab(&stack->a, 'a');
-
 	chunk->size -= 2;
 }
 

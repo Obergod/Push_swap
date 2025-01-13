@@ -12,23 +12,10 @@
 
 #include "data_func.h"
 #include "push_swap.h"
-void print_stack_state(t_circ_buff *c, char stack_name) 
-{
-    printf("\n=== Stack %c state ===\n", stack_name);
-    printf("head=%d, tail=%d, size=%d\n", c->head, c->tail, c->size);
-    printf("Values: ");
-    
-    int pos = c->tail;
-    do {
-        printf("%d ", c->buff[pos]);
-        pos = next_pos(pos, c->size);
-    } while (pos != next_pos(c->head, c->size));
-    printf("\n===================\n");
-}
 
 void	sort_three(t_stacks *stack, t_chunk *chunk)
 {
-	t_circ_buff *s;
+	t_circ_buff	*s;
 	int			max;
 
 	s = wich_stack(stack, chunk->loc);
@@ -43,7 +30,8 @@ void	sort_three(t_stacks *stack, t_chunk *chunk)
 		sort_three_bot_b(stack, chunk, s, max);
 }
 
-void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max)
+void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a,
+		int max)
 {
 	int	next;
 
@@ -65,7 +53,8 @@ void	sort_three_top_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max)
 	two_digit_sort(stack, chunk);
 }
 
-void	sort_three_bot_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max)
+void	sort_three_bot_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a,
+		int max)
 {
 	int	next;
 
@@ -90,7 +79,9 @@ void	sort_three_bot_a(t_stacks *stack, t_chunk *chunk, t_circ_buff *a, int max)
 	chunk->size -= 1;
 	two_digit_sort(stack, chunk);
 }
-void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
+
+void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b,
+		int max)
 {
 	int	next;
 
@@ -115,7 +106,8 @@ void	sort_three_top_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
 	two_digit_sort(stack, chunk);
 }
 
-void	sort_three_bot_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
+void	sort_three_bot_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b,
+		int max)
 {
 	int	next;
 
@@ -142,11 +134,3 @@ void	sort_three_bot_b(t_stacks *stack, t_chunk *chunk, t_circ_buff *b, int max)
 	chunk->size -= 1;
 	two_digit_sort(stack, chunk);
 }
-
-
-
-
-
-
-
-

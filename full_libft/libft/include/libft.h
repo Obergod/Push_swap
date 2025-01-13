@@ -90,5 +90,6 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 int					ft_lstsize(t_list *lst);
 int					count_words(char const *s, char c);
 int					ft_abs(int nb);
+void				ft_swap(int *a, int *b);
 
 #endif

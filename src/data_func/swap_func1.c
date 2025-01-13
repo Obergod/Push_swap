@@ -26,118 +26,60 @@ void	s_ab(t_circ_buff *c, char stack)
 		ft_printf("sb\n");
 }
 
-
-void pa(t_circ_buff *a, t_circ_buff *b)
+void	pa(t_circ_buff *a, t_circ_buff *b)
 {
-    int dst;
+	int	dst;
 
 	if (circ_full(a))
-        return;
-	dst = prev_pos(a->tail, a->size);     // Make space in A top
-	a->buff[dst] = b->buff[b->tail];       // Add to A top
-	a->tail  = dst;                        // Update A tail
-	b->tail = next_pos(b->tail, b->size);  // Update B tail
-
+		return ;
+	dst = prev_pos(a->tail, a->size);
+	a->buff[dst] = b->buff[b->tail];
+	a->tail = dst;
+	b->tail = next_pos(b->tail, b->size);
 	ft_printf("pa\n");
-   // print_stack_state(a, 'A');
-   // print_stack_state(b, 'B');
 }
 
-void pb(t_circ_buff *b, t_circ_buff *a)
+void	pb(t_circ_buff *b, t_circ_buff *a)
 {
-    int dst;
+	int	dst;
 
 	if (circ_full(b))
-	    return;
-	dst = prev_pos(b->tail, b->size);     // Make space in B top
-	b->buff[dst] = a->buff[a->tail];       // Add to B top
-	b->tail  = dst;                        // Update A tail
-	a->tail = next_pos(a->tail, a->size);  // Update B tail
-    ft_printf("pb\n");
-   // print_stack_state(a, 'A');
-   // print_stack_state(b, 'B');
+		return ;
+	dst = prev_pos(b->tail, b->size);
+	b->buff[dst] = a->buff[a->tail];
+	b->tail = dst;
+	a->tail = next_pos(a->tail, a->size);
+	ft_printf("pb\n");
 }
 
-void r_ab(t_circ_buff *c, char stack)
+void	r_ab(t_circ_buff *c, char stack)
 {
-    int first_value;
+	int	first_value;
 
-    if (circ_empty(c) || c->size < 2)
-        return;
-
-    // Save first value (at tail)
-    first_value = c->buff[c->tail];
-    
-    // Move tail forward
-    c->tail = next_pos(c->tail, c->size);
-    
-    // Move head forward and place first value
-    c->head = next_pos(c->head, c->size);
-    c->buff[c->head] = first_value;
-
-   // print_stack_state(c, stack);
-    if (stack == 'a')
-        ft_printf("ra\n");
-    else if (stack == 'b')
-        ft_printf("rb\n");
+	if (circ_empty(c) || c->size < 2)
+		return ;
+	first_value = c->buff[c->tail];
+	c->tail = next_pos(c->tail, c->size);
+	c->head = next_pos(c->head, c->size);
+	c->buff[c->head] = first_value;
+	if (stack == 'a')
+		ft_printf("ra\n");
+	else if (stack == 'b')
+		ft_printf("rb\n");
 }
 
 void	rr_ab(t_circ_buff *c, char stack)
 {
-    int last_value;
+	int	last_value;
 
-    if (circ_empty(c) || c->size < 2)
-        return;
-
-    // Save last value (at head)
-    last_value = c->buff[c->head];
-    
-    // Move head backward
-    c->head = prev_pos(c->head, c->size);
-    
-    // Move tail backward and place last value
-    c->tail = prev_pos(c->tail, c->size);
-    c->buff[c->tail] = last_value;
-
-   //   print_stack_state(c, stack);
-    if (stack == 'a')
-        ft_printf("rra\n");
-    else if (stack == 'b')
-        ft_printf("rrb\n");
+	if (circ_empty(c) || c->size < 2)
+		return ;
+	last_value = c->buff[c->head];
+	c->head = prev_pos(c->head, c->size);
+	c->tail = prev_pos(c->tail, c->size);
+	c->buff[c->tail] = last_value;
+	if (stack == 'a')
+		ft_printf("rra\n");
+	else if (stack == 'b')
+		ft_printf("rrb\n");
 }
-/*
-void r_ab(t_circ_buff *c, char stack)
-{
-    int temp;
-    
-    if (!c || c->size < 2)
-        return;
-        
-    temp = c->buff[c->tail];
-    c->tail = next_pos(c->tail, c->size);
-    c->head = next_pos(c->head, c->size);
-    c->buff[c->head] = temp;
-    
-    if (stack == 'a')
-        ft_printf("ra\n");
-    else if (stack == 'b')
-        ft_printf("rb\n");
-}
-
-void rr_ab(t_circ_buff *c, char stack)
-{
-    int temp;
-    
-    if (!c || c->size < 2)
-        return;
-        
-    temp = c->buff[prev_pos(c->head, c->size)];
-    c->tail = prev_pos(c->tail, c->size);
-    c->head = prev_pos(c->head, c->size);
-    c->buff[c->tail] = temp;
-    
-    if (stack == 'a')
-        ft_printf("rra\n");
-    else if (stack == 'b')
-        ft_printf("rrb\n");
-}*/

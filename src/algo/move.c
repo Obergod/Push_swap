@@ -13,7 +13,7 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-void	move_from_to(t_stacks *stacks, enum e_loc from, enum e_loc to)
+int	move_from_to(t_stacks *stacks, enum e_loc from, enum e_loc to)
 {
 	if (from == TOP_A)
 		move_from_top_a(stacks, to);
@@ -23,6 +23,7 @@ void	move_from_to(t_stacks *stacks, enum e_loc from, enum e_loc to)
 		move_from_top_b(stacks, to);
 	else if (from == BOT_B)
 		move_from_bot_b(stacks, to);
+	return (1);
 }
 
 void	move_from_top_a(t_stacks *stacks, enum e_loc to)
@@ -37,7 +38,6 @@ void	move_from_top_a(t_stacks *stacks, enum e_loc to)
 		r_ab(&stacks->b, 'b');
 	}
 }
-
 
 void	move_from_bot_a(t_stacks *stacks, enum e_loc to)
 {
