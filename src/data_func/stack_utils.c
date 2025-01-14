@@ -36,12 +36,11 @@ int	next_pos(int pos, int size)
 	return (pos + 1);
 }
 
-void	circ_init(int size, t_circ_buff *c)
+int	circ_push(t_circ_buff *c, int data)
 {
-	c->buff = (int *)malloc(sizeof(int) * size);
-	if (!c->buff)
-		return ;
-	c->head = 0;
-	c->tail = 0;
-	c->size = size;
+	if (circ_full(c))
+		return (-1);
+	c->buff[c->head] = data;
+	c->head = (c->head + 1) % c->size;
+	return (0);
 }

@@ -33,6 +33,7 @@ typedef struct s_stacks
 
 /******      get stack    *************/
 t_stacks		*get_stack(char **nbr, int size);
+t_stacks		*stacks_init(int size);
 void			circ_init(int size, t_circ_buff *c);
 int				circ_pop(t_circ_buff *c, int *data);
 int				circ_push(t_circ_buff *c, int data);
@@ -53,5 +54,13 @@ void			rr_ab(t_circ_buff *c, char stack);
 void			ss(t_circ_buff *a, t_circ_buff *b);
 void			rr(t_circ_buff *a, t_circ_buff *b);
 void			rrr(t_circ_buff *a, t_circ_buff *b);
+
+/******		get_stack_utils		********/
+void			free_split(char **split);
+void			cleanup_stacks(t_stacks *stacks);
+int				ft_in_str(char *s, char *to_find);
+int				only_space(char *str);
+void			process_split_numbers(char *str, int **original_numbers);
+int				*init_and_allocate(t_stacks **stacks, int size);
 
 #endif

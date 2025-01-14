@@ -78,7 +78,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (stock);
 }
 
-int	ft_strchr(const char *s, int c)
+int	modif_strchr(const char *s, int c)
 {
 	if (!s)
 		return (0);

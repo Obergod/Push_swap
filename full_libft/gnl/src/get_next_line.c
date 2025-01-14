@@ -34,7 +34,7 @@ char	*extract_line(char *stock, int fd)
 	int		i;
 
 	i = 1;
-	while (!ft_strchr(stock, '\n') && i != 0)
+	while (!modif_strchr(stock, '\n') && i != 0)
 	{
 		buff = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 		if (!buff)
@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (stock[fd][0] == '\0')
 		return (free(stock[fd]), stock[fd] = NULL, NULL);
-	if (!ft_strchr(stock[fd], '\n'))
+	if (!modif_strchr(stock[fd], '\n'))
 	{
 		buff = ft_strdup(stock[fd]);
 		return (free(stock[fd]), stock[fd] = NULL, buff);

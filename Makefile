@@ -13,7 +13,7 @@
 NAME = push_swap
 LIBFT = full_libft/libftfull.a
 CC = gcc
-CFLAGS += -Wall -Werror -Wextra -I $(INCS_DIR) -I$(LIBFT_INC)
+CFLAGS += -Wall -Werror -Wextra -I $(INCS_DIR) -I$(LIBFT_INC) -g
 
 # Add source and include directories
 SRCS_DIR = src
@@ -29,7 +29,8 @@ SRC = /algo/swap_100.c \
 	  /data_func/get_stack.c \
 	  /data_func/swap_func1.c \
 	  /data_func/swap_func2.c \
-	  /data_func/stack_utils.c
+	  /data_func/stack_utils.c \
+	  /data_func/get_stack_utils.c
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRC))
 OBJ = $(SRCS:.c=.o)
