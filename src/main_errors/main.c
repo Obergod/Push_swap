@@ -24,40 +24,52 @@ void	free_split(char **split)
 	free(split);
 }
 
-t_stacks	*how_to_stack(int *size, int ac, char **av)
+int	how_to_stack(t_stacks **stacks, int ac, char **av)
 {
 	char		**nb;
-	t_stacks	*stacks;
 	int			i;
+	int			error;
+	int			size;
 
 	i = 0;
-	*size = 0;
+	size = 0;
 	while (++i < ac)
-		*size += count_words(av[i], ' ');
-	i = 0;
+		size += count_words(av[i], ' ');
+	error = check_errors(av, ac);
+	if (error < 0)
+		return (error);
 	if (ac == 2)
 	{
 		nb = ft_split(av[1], ' ');
-		stacks = get_stack(nb, *size);
+		*stacks = get_stack(nb, size);
 		free_split(nb);
 	}
 	else if (ac > 2)
 	{
-		stacks = get_stack(av + 1, *size);
+		*stacks = get_stack(av + 1, size);
 	}
-	return (stacks);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_stacks	*stacks;
-	int			size;
+	int	error;
 
 	if (ac < 2)
-		return (1);
-	stacks = how_to_stack(&size, ac, av);
+		return (-1);
+	error = how_to_stack(&stacks, ac, av);
+	if (error < 0)
+	{
+		ft_print_errors(error);
+		return (-1);
+	}
 	if (!stacks)
-		return (1);
+	{
+		ft_putstr_fd("Error : stack uninitialized\n", 2);
+		cleanup_stacks(stacks);
+		return (-1);
+	}
 	sort(stacks);
 	cleanup_stacks(stacks);
 	return (0);

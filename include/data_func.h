@@ -17,6 +17,8 @@
 # include "libft.h"
 # include <stdint.h>
 
+#define INT_MIN = -21364748
+
 typedef struct s_circ_buff
 {
 	int			*buff;
@@ -62,5 +64,10 @@ int				ft_in_str(char *s, char *to_find);
 int				only_space(char *str);
 void			process_split_numbers(char *str, int **original_numbers);
 int				*init_and_allocate(t_stacks **stacks, int size);
+
+/*****		Errors				********/
+int		check_errors(char **av, int ac);
+int		check_nb_errors(char **nb);
+void	ft_print_errors(int	error);
 
 #endif

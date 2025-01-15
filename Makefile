@@ -25,12 +25,13 @@ SRC = /algo/swap_100.c \
 	  /algo/move.c \
 	  /algo/sorts.c \
 	  /algo/sort_three.c \
-	  /algo/main.c \
 	  /data_func/get_stack.c \
 	  /data_func/swap_func1.c \
 	  /data_func/swap_func2.c \
 	  /data_func/stack_utils.c \
-	  /data_func/get_stack_utils.c
+	  /data_func/get_stack_utils.c \
+	  /main_errors/main.c \
+	  /main_errors/errors.c \
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRC))
 OBJ = $(SRCS:.c=.o)

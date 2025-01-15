@@ -50,3 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Test folders
+	push_swap_visualizer
+	push_swap_tester
