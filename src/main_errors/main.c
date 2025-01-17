@@ -13,7 +13,6 @@
 #include "data_func.h"
 #include "push_swap.h"
 
-
 void	free_split(char **split)
 {
 	int	i;
@@ -35,7 +34,7 @@ int	how_to_stack(t_stacks **stacks, int ac, char **av)
 	size = 0;
 	while (++i < ac)
 		size += count_words(av[i], ' ');
-	error = check_errors(av, ac);
+	error = check_errors(av + 1, ac);
 	if (error < 0)
 		return (error);
 	if (ac == 2)
@@ -54,7 +53,7 @@ int	how_to_stack(t_stacks **stacks, int ac, char **av)
 int	main(int ac, char **av)
 {
 	t_stacks	*stacks;
-	int	error;
+	int			error;
 
 	if (ac < 2)
 		return (-1);

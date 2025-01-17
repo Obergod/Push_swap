@@ -90,3 +90,19 @@ void	one_digit_sort(t_stacks *stack, t_chunk *chunk)
 		move_from_to(stack, chunk->loc, TOP_A);
 	chunk->size -= 1;
 }
+
+int	is_sorted(t_circ_buff *a)
+{
+	int	cur;
+	int	next;
+
+	cur = a->tail;
+	while (cur < a->size - 1)
+	{
+		next = next_pos(cur, a->size);
+		if (a->buff[cur] > a->buff[next])
+			return (0);
+		cur = next;
+	}
+	return (1);
+}

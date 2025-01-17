@@ -19,7 +19,7 @@ void	sort(t_stacks *stacks)
 
 	first_chunk.size = stacks->a.size;
 	first_chunk.loc = TOP_A;
-	if (first_chunk.size == 1)
+	if (first_chunk.size == 1 || is_sorted(&stacks->a))
 		return ;
 	else if (first_chunk.size == 3)
 		sort_three_only(stacks, &first_chunk);

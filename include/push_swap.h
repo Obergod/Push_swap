@@ -57,6 +57,7 @@ void			one_digit_sort(t_stacks *stack, t_chunk *chunk);
 void			two_digit_sort(t_stacks *stack, t_chunk *chunk);
 void			sort_three_only(t_stacks *stack, t_chunk *chunk);
 void			sort_five_only(t_stacks	*stack, t_chunk *chunk);
+int				is_sorted(t_circ_buff *a);
 void			sort_three(t_stacks *stack, t_chunk *chunk);
 void			sort_three_top_a(t_stacks *stack, t_chunk *chunk,
 					t_circ_buff *a, int max);
