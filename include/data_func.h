@@ -54,9 +54,9 @@ void			pa(t_circ_buff *a, t_circ_buff *b);
 void			pb(t_circ_buff *b, t_circ_buff *a);
 void			r_ab(t_circ_buff *c, char stack);
 void			rr_ab(t_circ_buff *c, char stack);
-void			ss(t_circ_buff *a, t_circ_buff *b);
-void			rr(t_circ_buff *a, t_circ_buff *b);
-void			rrr(t_circ_buff *a, t_circ_buff *b);
+void			ss(t_circ_buff *a, t_circ_buff *b, char c);
+void			rr(t_circ_buff *a, t_circ_buff *b, char c);
+void			rrr(t_circ_buff *a, t_circ_buff *b, char c);
 
 /******		get_stack_utils		********/
 void			free_split(char **split);

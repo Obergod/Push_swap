@@ -40,30 +40,30 @@ enum e_op	string_to_op(const char *str)
 		return (null_op);
 }
 
-void	call_op(t_ps *data, enum e_op op)
+void	call_op(t_stacks *stack, enum e_op op)
 {
 	if (op == pa)
 		push_a(data);
 	else if (op == pb)
 		push_b(data);
 	else if (op == rra)
-		r_rotate_a(data);
+		rr_ab(&stack->a, 'n');
 	else if (op == rrb)
-		r_rotate_b(data);
+		rr_ab(&stack->b, 'n');
 	else if (op == rrr)
-		r_rotate_ab(data);
+		rrr(&stack->a, &stack->b, 'n');
 	else if (op == ra)
-		rotate_a(data);
+		r_ab(&stack->a, 'n');
 	else if (op == rb)
-		rotate_b(data);
+		r_ab(&stack->b, 'n');
 	else if (op == rr)
-		rotate_ab(data);
+		rr(&stack->a, &stack->b, 'n');
 	else if (op == sa)
-		swap_a(data);
+		s_ab(&stack->a, 'n');
 	else if (op == sb)
-		swap_b(data);
+		s_ab(&stack->b, 'n');
 	else if (op == ss)
-		swap_ab(data);
+		ss(&stack->a, &stack->b, 'n');
 	else
 		error(data);
 }

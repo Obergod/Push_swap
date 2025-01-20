@@ -12,23 +12,26 @@
 
 #include "data_func.h"
 
-void	ss(t_circ_buff *a, t_circ_buff *b)
+void	ss(t_circ_buff *a, t_circ_buff *b, char c)
 {
 	s_ab(a, 's');
 	s_ab(b, 's');
-	ft_printf("ss\n");
+	if (c == 's')
+		ft_printf("ss\n");
 }
 
-void	rr(t_circ_buff *a, t_circ_buff *b)
+void	rr(t_circ_buff *a, t_circ_buff *b, char c)
 {
 	r_ab(a, 's');
 	r_ab(b, 's');
-	ft_printf("rr\n");
+	if (c == 's')
+		ft_printf("rr\n");
 }
 
-void	rrr(t_circ_buff *a, t_circ_buff *b)
+void	rrr(t_circ_buff *a, t_circ_buff *b, char c)
 {
 	rr_ab(a, 's');
 	rr_ab(b, 's');
-	ft_printf("rrr\n");
+	if (c == 's')
+		ft_printf("rrr\n");
 }
