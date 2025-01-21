@@ -15,6 +15,7 @@
 
 # include "ft_printf.h"
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdint.h>
 
 # define INT_MIN	-2146473648
@@ -40,6 +41,7 @@ t_stacks		*stacks_init(int size);
 void			circ_init(int size, t_circ_buff *c);
 int				circ_pop(t_circ_buff *c, int *data);
 int				circ_push(t_circ_buff *c, int data);
+int				how_to_stack(t_stacks **stacks, int ac, char **av);
 
 /******		swap_utils		**********/
 int				circ_full(t_circ_buff *c);

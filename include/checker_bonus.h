@@ -19,17 +19,28 @@
 enum		e_op
 {
 	null_op,
-	pa,
-	pb,
+	epa,
+	epb,
 	ra,
 	rb,
-	rr,
+	err,
 	rra,
 	rrb,
-	rrr,
+	errr,
 	sa,
 	sb,
-	ss
+	ess
 };
+
+/****		checker_bonus		******/
+void		error_op(t_stacks *stack, char *line);
+int			checker(t_stacks *stacks, int fd);
+
+/****		checker_utils_bonus ******/
+void		error(t_stacks *stack);
+void		pa_no_print(t_circ_buff *a, t_circ_buff *b);
+void		pb_no_print(t_circ_buff *b, t_circ_buff *a);
+enum e_op	string_to_op(char *str);
+void		call_op(t_stacks *stack, enum e_op op);
 
 #endif

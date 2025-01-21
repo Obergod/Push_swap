@@ -30,7 +30,7 @@ char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
-int		ft_strchr(const char *s, int c);
+int		modif_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 
 #endif
