@@ -14,15 +14,16 @@ NAME = push_swap
 BONUS_NAME = checker
 LIBFT = full_libft/libftfull.a
 CC = gcc
-CFLAGS += -Wall -Werror -Wextra -I $(INCS_DIR) -I$(LIBFT_INC) -g
+CFLAGS += -Wall -Werror -Wextra -I $(INCS_DIR) -I$(LIBFT_INC)
 
-# Add source and include directories
+# source and include directories
 SRCS_DIR = src
 SRCS_BONUS_DIR = src/checker_bonus/
 INCS_DIR = include/
 LIBFT_INC = full_libft/include/
 
-SRC = /algo/swap_100.c \
+# common sources
+COMMON_SRC = /algo/swap_100.c \
 	  /algo/swap_utils.c \
 	  /algo/move.c \
 	  /algo/sorts.c \
@@ -32,16 +33,22 @@ SRC = /algo/swap_100.c \
 	  /data_func/swap_func2.c \
 	  /data_func/stack_utils.c \
 	  /data_func/get_stack_utils.c \
-	  /main_errors/main.c \
-	  /main_errors/errors.c
+	  /main_errors/errors.c \
+	  /main_errors/main_utils.c
 
+# push_swap
+MAIN_SRC = /main_errors/main.c
+
+# Checker specific sources
 SRC_BONUS = checker_bonus.c \
 			checker_utils_bonus.c
 
-SRCS = $(addprefix $(SRCS_DIR), $(SRC))
+COMMON_SRCS = $(addprefix $(SRCS_DIR), $(COMMON_SRC))
+MAIN_SRCS = $(addprefix $(SRCS_DIR), $(MAIN_SRC))
 SRCS_BONUS = $(addprefix $(SRCS_BONUS_DIR), $(SRC_BONUS))
 
-OBJ = $(SRCS:.c=.o)
+COMMON_OBJ = $(COMMON_SRCS:.c=.o)
+MAIN_OBJ = $(MAIN_SRCS:.c=.o)
 OBJ_BONUS = $(SRCS_BONUS:.c=.o)
 
 all: $(NAME)
@@ -49,20 +56,20 @@ all: $(NAME)
 $(LIBFT):
 	$(MAKE) -C full_libft re
 
-$(NAME): $(LIBFT) $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LIBFT)
+$(NAME): $(LIBFT) $(COMMON_OBJ) $(MAIN_OBJ)
+	$(CC) -o $(NAME) $(COMMON_OBJ) $(MAIN_OBJ) $(LIBFT)
 
-bonus: $(OBJ) $(OBJ_BONUS)
-	$(CC) -o $(BONUS_NAME) $(OBJ_BONUS) $(OBJ) $(LIBFT)
+bonus: $(LIBFT) $(COMMON_OBJ) $(OBJ_BONUS)
+	$(CC) -o $(BONUS_NAME) $(COMMON_OBJ) $(OBJ_BONUS) $(LIBFT)
 
 clean:
 	$(MAKE) -C full_libft clean
-	rm -f $(OBJ) $(OBJ_BONUS)
+	rm -f $(COMMON_OBJ) $(MAIN_OBJ) $(OBJ_BONUS)
 
 fclean: clean
 	$(MAKE) -C full_libft fclean
-	rm -f $(NAME) 
+	rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re bons
+.PHONY: all clean fclean re bonus

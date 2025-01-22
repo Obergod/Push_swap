@@ -68,7 +68,9 @@ void			sort_three_bot_b(t_stacks *stack, t_chunk *chunk,
 void			sort_three_top_b(t_stacks *stack, t_chunk *chunk,
 					t_circ_buff *b, int max);
 
-/*****		cleanup_stacks		********/
+/*****		main_etc..		********/
 void			cleanup_stacks(t_stacks *stacks);
+void			free_split(char **split);
+int				how_to_stack(t_stacks **stacks, int ac, char **av);
 
 #endif
