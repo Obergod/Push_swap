@@ -13,8 +13,8 @@
 #ifndef CHECKER_BONUS_H
 # define CHECKER_BONUS_H
 
-#include "data_func.h"
-#include "push_swap.h"
+# include "data_func.h"
+# include "push_swap.h"
 
 enum		e_op
 {

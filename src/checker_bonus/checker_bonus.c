@@ -21,7 +21,7 @@ void	error_op(t_stacks *stack, char *line)
 
 int	checker(t_stacks *stacks, int fd)
 {
-	char	*line;
+	char		*line;
 	enum e_op	op;
 
 	line = malloc(sizeof(char) * 5);
@@ -31,7 +31,7 @@ int	checker(t_stacks *stacks, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		op = string_to_op(line);
 		call_op(stacks, op);
 		if (op == null_op)
@@ -39,16 +39,13 @@ int	checker(t_stacks *stacks, int fd)
 	}
 	if (line)
 		free(line);
-	if (is_sorted(&stacks->a) && op != null_op)
-		return (1);
-	return (0);
+	return (is_sorted(&stacks->a));
 }
 
 int	main(int ac, char **av)
 {
 	t_stacks	*stacks;
 	int			fd;
-	
 
 	fd = how_to_stack(&stacks, ac, av);
 	if (fd < 0)
@@ -56,6 +53,7 @@ int	main(int ac, char **av)
 		error(stacks);
 		return (-1);
 	}
+	fd = 0;
 	if (checker(stacks, fd))
 		ft_printf("OK\n");
 	else
@@ -63,5 +61,3 @@ int	main(int ac, char **av)
 	free(stacks);
 	return (0);
 }
-
-

@@ -47,27 +47,27 @@ void	pb_no_print(t_circ_buff *b, t_circ_buff *a)
 
 enum e_op	string_to_op(char *str)
 {
-	if (!ft_strcmp(str, "pa"))
+	if (!ft_strcmp(str, "pa") || !ft_strcmp(str, "pa\n"))
 		return (epa);
-	else if (!ft_strcmp(str, "pb"))
+	else if (!ft_strcmp(str, "pb") || !ft_strcmp(str, "pb\n"))
 		return (epb);
-	else if (!ft_strcmp(str, "rra"))
+	else if (!ft_strcmp(str, "rra") || !ft_strcmp(str, "rra\n"))
 		return (rra);
-	else if (!ft_strcmp(str, "rrb"))
+	else if (!ft_strcmp(str, "rrb") || !ft_strcmp(str, "rrb\n"))
 		return (rrb);
-	else if (!ft_strcmp(str, "rrr"))
+	else if (!ft_strcmp(str, "rrr") || !ft_strcmp(str, "rrr\n"))
 		return (errr);
-	else if (!ft_strcmp(str, "ra"))
+	else if (!ft_strcmp(str, "ra") || !ft_strcmp(str, "ra\n"))
 		return (ra);
-	else if (!ft_strcmp(str, "rb"))
+	else if (!ft_strcmp(str, "rb") || !ft_strcmp(str, "rb\n"))
 		return (rb);
-	else if (!ft_strcmp(str, "rr"))
+	else if (!ft_strcmp(str, "rr") || !ft_strcmp(str, "rr\n"))
 		return (err);
-	else if (!ft_strcmp(str, "sa"))
+	else if (!ft_strcmp(str, "sa") || !ft_strcmp(str, "sa\n"))
 		return (sa);
-	else if (!ft_strcmp(str, "sb"))
+	else if (!ft_strcmp(str, "sb") || !ft_strcmp(str, "sb\n"))
 		return (sb);
-	else if (!ft_strcmp(str, "ss"))
+	else if (!ft_strcmp(str, "ss") || !ft_strcmp(str, "ss\n"))
 		return (ess);
 	else
 		return (null_op);
