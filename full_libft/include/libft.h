@@ -90,7 +90,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 int					ft_lstsize(t_list *lst);
 int					count_words(char const *s, char c);
 int					ft_abs(int nb);
-int					ft_atol(const char *nptr);
+long				ft_atol(const char *nptr);
 int					ft_strcmp(const char *s1, const char *s2);
 
 #endif

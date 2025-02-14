@@ -46,27 +46,49 @@ int	check_nb_errors(char **nb)
 	return (0);
 }
 
-int	check_errors(char **av, int ac)
+static int	check_char_errors(char **nb, int ac)
 {
-	int		i;
-	int		j;
-	int		error;
-	char	**nb;
+	int	i;
+	int	j;
 
 	i = -1;
-	error = 0;
-	nb = av;
-	if (ac == 2)
-		nb = ft_split(av[0], ' ');
 	while (nb[++i])
 	{
 		j = -1;
 		while (nb[i][++j])
 		{
 			if (!ft_isdigit(nb[i][j]) && nb[i][j] != ' ' && nb[i][j] != '-')
+			{
+				if (ac == 2)
+					free_split(nb);
 				return (-3);
+			}
+			if (nb[i][j] == '-' && nb[i][j + 1] == '-')
+			{
+				if (ac == 2)
+					free_split(nb);
+				return (-3);
+			}
 		}
 	}
+	return (0);
+}
+
+int	check_errors(char **av, int ac)
+{
+	int		error;
+	char	**nb;
+
+	nb = av;
+	if (ac == 2)
+		nb = ft_split(av[0], ' ');
+	if (!nb)
+		return (-1);
+	error = check_char_errors(nb, ac);
+	if (error)
+		return (error);
 	error = check_nb_errors(nb);
+	if (ac == 2)
+		free_split(nb);
 	return (error);
 }

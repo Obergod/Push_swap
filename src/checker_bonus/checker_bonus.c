@@ -49,10 +49,7 @@ int	main(int ac, char **av)
 
 	fd = how_to_stack(&stacks, ac, av);
 	if (fd < 0)
-	{
-		error(stacks);
 		return (-1);
-	}
 	fd = 0;
 	if (checker(stacks, fd))
 		ft_printf("OK\n");

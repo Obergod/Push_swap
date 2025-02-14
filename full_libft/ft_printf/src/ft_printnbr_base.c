@@ -14,13 +14,13 @@
 
 int	ft_printnbr_base(size_t n, char c)
 {
-	char		*low_base;
-	char		*up_base;
-	int			len;
+	int		len;
+	char	*low_base;
+	char	*up_base;
 
+	len = 0;
 	low_base = "0123456789abcdef";
 	up_base = "0123456789ABCDEF";
-	len = 0;
 	if (n >= 16)
 		len += ft_printnbr_base(n / 16, c);
 	if (c == 'x')

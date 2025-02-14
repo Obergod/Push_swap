@@ -17,7 +17,7 @@ static int	ft_isspace(const char c)
 	return (0);
 }
 
-int	ft_atol(const char *nptr)
+long	ft_atol(const char *nptr)
 {
 	long	i;
 	long	res;

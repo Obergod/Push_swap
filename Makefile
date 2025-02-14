@@ -10,11 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
+# At the very top of the file, after the header
+MAKEFLAGS += --silent
+
 NAME = push_swap
 BONUS_NAME = checker
 LIBFT = full_libft/libftfull.a
 CC = gcc
 CFLAGS += -Wall -Werror -Wextra -I $(INCS_DIR) -I$(LIBFT_INC)
+
+#printing
+GREEN = \033[32m
+YELLOW = \033[33m
+RESET = \033[0m
+CLEAR = \033[2K\r
 
 # source and include directories
 SRCS_DIR = src
@@ -54,22 +63,28 @@ OBJ_BONUS = $(SRCS_BONUS:.c=.o)
 all: $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C full_libft re
+	@$(MAKE) -C full_libft re
 
 $(NAME): $(LIBFT) $(COMMON_OBJ) $(MAIN_OBJ)
-	$(CC) -o $(NAME) $(COMMON_OBJ) $(MAIN_OBJ) $(LIBFT)
+	@printf "$(CLEAR)$(YELLOW)Creating $(NAME)..."
+	@$(CC) -no-pie -o $(NAME) $(COMMON_OBJ) $(MAIN_OBJ) $(LIBFT) 2>/dev/null
+	@printf "$(CLEAR)$(GREEN)✓ $(NAME) successfully created!\n"
 
 bonus: $(LIBFT) $(COMMON_OBJ) $(OBJ_BONUS)
-	$(CC) -o $(BONUS_NAME) $(COMMON_OBJ) $(OBJ_BONUS) $(LIBFT)
+	@printf "$(CLEAR)$(YELLOW)Creating $(BONUS_NAME)..."
+	@$(CC) -no-pie -o $(BONUS_NAME) $(COMMON_OBJ) $(OBJ_BONUS) $(LIBFT) 2>/dev/null
+	@printf "$(CLEAR)$(GREEN)✓ $(BONUS_NAME) successfully created!\n"
 
 clean:
-	$(MAKE) -C full_libft clean
-	rm -f $(COMMON_OBJ) $(MAIN_OBJ) $(OBJ_BONUS)
+	@printf "$(CLEAR)$(YELLOW)Cleaning object files..."
+	@rm -f $(COMMON_OBJ) $(MAIN_OBJ) $(OBJ_BONUS)
+	@printf "$(CLEAR)$(GREEN)✓ Object files cleaned!\n"
 
 fclean: clean
-	$(MAKE) -C full_libft fclean
-	rm -f $(NAME) $(BONUS_NAME)
-
+	@$(MAKE) -C full_libft fclean
+	@printf "$(CLEAR)$(YELLOW)Removing executables..."
+	@rm -f $(NAME) $(BONUS_NAME)
+	@printf "$(CLEAR)$(GREEN)✓ Executables removed!\n"
 re: fclean all
 
 .PHONY: all clean fclean re bonus

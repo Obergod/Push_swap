@@ -17,9 +17,7 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <stdint.h>
-
-# define INT_MIN	-2146473648
-# define INT_MAX	2146473647
+# include <limits.h>
 
 typedef struct s_circ_buff
 {
